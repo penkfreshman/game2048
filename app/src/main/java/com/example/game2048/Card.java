@@ -30,7 +30,6 @@ public class Card extends FrameLayout {
         lp=new LayoutParams(-1,-1);
         lp.setMargins(10,10,0,0);
         addView(tv,lp);
-
     }
 
     public   int getNum(){
