@@ -40,12 +40,7 @@ public class gameView extends GridLayout {
        setColumnCount(NUM);
        setBackgroundColor(getResources().getColor(R.color.theme2048));
        addCards(GetCardWidth(),GetCardWidth());
-        DisplayMetrics displayMetrics;
-        displayMetrics = getResources().getDisplayMetrics();
-        int cardWidth;
-        cardWidth = displayMetrics.widthPixels;
-        FrameLayout fl=findViewById(R.id.panel);
-       setMinimumHeight(cardWidth-40);
+
 
 
         setOnTouchListener(new OnTouchListener() {
@@ -253,13 +248,7 @@ public class gameView extends GridLayout {
 
         cardWidth=cardWidth-60;
         Log.d("height1",cardWidth+" ");
-     /*   GridLayout gridLayout=findViewById(R.id.gameView);
-        GridLayout.LayoutParams params= new LayoutParams();
-        params.height=cardWidth;
-        params.width=cardWidth;
-        gridLayout.setLayoutParams(params);
 
-      */
 
         Log.d("width_layout",cardWidth+"");
         //一行有四个卡片，每个卡片占屏幕的四分之一

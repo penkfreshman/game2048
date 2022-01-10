@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
@@ -43,7 +45,10 @@ public class Anime  extends FrameLayout {
         }
         TranslateAnimation ta = new TranslateAnimation(0, gameView.CARD_WIDTH*(toX-fromX), 0, gameView.CARD_WIDTH*(toY-fromY));
 
-        ta.setDuration(100);
+        ta.setDuration(200);
+        ta.setInterpolator(new DecelerateInterpolator());
+        ta.setFillEnabled(true);
+        ta.setStartOffset(200);
         ta.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
@@ -82,7 +87,7 @@ public class Anime  extends FrameLayout {
 
     public void createScaleTo1(Card target){
         ScaleAnimation sa = new ScaleAnimation(0.1f, 1, 0.1f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        sa.setDuration(100);
+        sa.setDuration(200);
         target.setAnimation(null);
         target.getLabel().startAnimation(sa);
     }

@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -19,19 +21,29 @@ public class MainActivity extends AppCompatActivity {
     private  ImageButton previous;
     private  gameView gv_layout;
     private  Anime am_layout;
-    private  int SCORE;
+    private  int SCORE=0;
+    private FrameLayout fl;
     private String SAVE_MESSAGE="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initButton();
         mainActivity=this;
         View decorView = this.getWindow().getDecorView();
 
         SAVE_MESSAGE+="layout4";
 
-        initButton();
+        DisplayMetrics displayMetrics;
+        displayMetrics = getResources().getDisplayMetrics();
+        int cardWidth;
+        cardWidth = displayMetrics.widthPixels;
+
+       fl.setMinimumHeight(cardWidth-40);
+
+
+
         decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -50,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         previous=findViewById(R.id.previous);
         gv_layout=findViewById(R.id.gameView_layout);
         am_layout=findViewById(R.id.anime_layout);
+        fl=findViewById(R.id.panel);
 
     }
 
@@ -62,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addScore(int s){
-        SCORE=+s;
+        SCORE=SCORE+s;
+
         showScore(SCORE);
 
         int max= Math.max(SCORE,getScore());
