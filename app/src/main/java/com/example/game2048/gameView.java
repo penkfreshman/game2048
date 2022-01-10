@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
@@ -32,9 +33,16 @@ public class gameView extends GridLayout {
     }
 
     private void initGameView(){
+
        setColumnCount(NUM);
        setBackgroundColor(getResources().getColor(R.color.theme2048));
        addCards(GetCardWidth(),GetCardWidth());
+        DisplayMetrics displayMetrics;
+        displayMetrics = getResources().getDisplayMetrics();
+        int cardWidth;
+        cardWidth = displayMetrics.widthPixels;
+        FrameLayout fl=findViewById(R.id.panel);
+       setMinimumHeight(cardWidth-40);
 
         setOnTouchListener(new OnTouchListener() {
             private float startX,startY,offsetX,offsetY;
@@ -100,7 +108,7 @@ public class gameView extends GridLayout {
         int cardWidth;
         cardWidth = displayMetrics.widthPixels;
 
-        cardWidth=cardWidth-40;
+        cardWidth=cardWidth-60;
         Log.d("height1",cardWidth+" ");
         GridLayout gridLayout=findViewById(R.id.gameView);
         GridLayout.LayoutParams params= new LayoutParams();
@@ -110,7 +118,7 @@ public class gameView extends GridLayout {
 
         Log.d("width_layout",cardWidth+"");
         //一行有四个卡片，每个卡片占屏幕的四分之一
-        return  (cardWidth/NUM)-20;
+        return  (cardWidth/NUM);
 
     }
 

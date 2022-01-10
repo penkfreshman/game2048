@@ -99,7 +99,8 @@
     </LinearLayout>
 <FrameLayout
     android:layout_width="match_parent"
-
+    android:id="@+id/panel"
+    android:layout_margin="10dp"
     android:layout_height="wrap_content">
 
 
@@ -107,7 +108,7 @@
         android:id="@+id/gameView"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
+
 
         >
     </com.example.game2048.gameView>
