@@ -17,8 +17,11 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 public class gameView extends GridLayout {
-    private static int NUM=4;
-    private static int CARD_WIDTH=0;
+    public static int NUM=4;
+    public static int CARD_WIDTH=0;
+
+    private Card[][] cardsMap = new Card[NUM][NUM];
+    private List<Point> emptyPoints = new ArrayList<Point>();
 
     public gameView(Context context) {
         super(context);
@@ -43,6 +46,7 @@ public class gameView extends GridLayout {
         cardWidth = displayMetrics.widthPixels;
         FrameLayout fl=findViewById(R.id.panel);
        setMinimumHeight(cardWidth-40);
+
 
         setOnTouchListener(new OnTouchListener() {
             private float startX,startY,offsetX,offsetY;
@@ -74,19 +78,158 @@ public class gameView extends GridLayout {
     }
 
     private void Swipedwon() {
-        Log.d("gameview","down");
+
+        boolean merge = false;
+
+        for (int x = 0; x < NUM; x++) {
+            for (int y = NUM-1; y >=0; y--) {
+
+                for (int y1 = y-1; y1 >=0; y1--) {
+                    if (cardsMap[x][y1].getNum()>0) {
+
+                        if (cardsMap[x][y].getNum()<=0) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y1].getNum());
+                            cardsMap[x][y1].setNum(0);
+
+                            y++;
+                            merge = true;
+                        }else if (cardsMap[x][y].equals(cardsMap[x][y1])) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
+                            cardsMap[x][y1].setNum(0);
+                            MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+                            merge = true;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (merge) {
+            addRandomNum();
+            checkComplete();
+        }
+
     }
 
     private void Swipeup() {
-        Log.d("gameview","up");
+
+        boolean merge = false;
+
+        for (int x = 0; x < NUM; x++) {
+            for (int y = 0; y < NUM; y++) {
+
+                for (int y1 = y+1; y1 <NUM; y1++) {
+                    if (cardsMap[x][y1].getNum()>0) {
+
+                        if (cardsMap[x][y].getNum()<=0) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y1].getNum());
+                            cardsMap[x][y1].setNum(0);
+
+                            y--;
+
+                            merge = true;
+                        }else if (cardsMap[x][y].equals(cardsMap[x][y1])) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
+                            cardsMap[x][y1].setNum(0);
+                            MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+                            merge = true;
+                        }
+
+                        break;
+
+                    }
+                }
+            }
+        }
+
+        if (merge) {
+            addRandomNum();
+            checkComplete();
+        }
+
     }
 
     private void SwipeRight() {
-        Log.d("gameview","right");
+        boolean merge = false;
+
+        for (int y = 0; y < NUM; y++) {
+            for (int x = NUM-1; x >=0; x--) {
+
+                for (int x1 = x-1; x1 >=0; x1--) {
+                    if (cardsMap[x1][y].getNum()>0) {
+
+                        if (cardsMap[x][y].getNum()<=0) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+                            cardsMap[x][y].setNum(cardsMap[x1][y].getNum());
+                            cardsMap[x1][y].setNum(0);
+
+                            x++;
+                            merge = true;
+                        }else if (cardsMap[x][y].equals(cardsMap[x1][y])) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
+                            cardsMap[x1][y].setNum(0);
+                            MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+                            merge = true;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (merge) {
+            addRandomNum();
+            checkComplete();
+        }
+
     }
 
     private void SwipeLeft() {
-        Log.d("gameview","left");
+        boolean merge = false;
+
+        for (int y = 0; y < NUM; y++) {
+            for (int x = 0; x < NUM; x++) {
+
+                for (int x1 = x+1; x1 < NUM; x1++) {
+                    if (cardsMap[x1][y].getNum()>0) {
+
+                        if (cardsMap[x][y].getNum()<=0) {
+
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y],cardsMap[x][y], x1, x, y, y);
+
+                            cardsMap[x][y].setNum(cardsMap[x1][y].getNum());
+                            cardsMap[x1][y].setNum(0);
+
+                            x--;
+                            merge = true;
+
+                        }else if (cardsMap[x][y].equals(cardsMap[x1][y])) {
+                            MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+                            cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
+                            cardsMap[x1][y].setNum(0);
+
+                            MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+                            merge = true;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (merge) {
+            addRandomNum();
+            checkComplete();
+        }
         
     }
 
@@ -110,11 +253,13 @@ public class gameView extends GridLayout {
 
         cardWidth=cardWidth-60;
         Log.d("height1",cardWidth+" ");
-        GridLayout gridLayout=findViewById(R.id.gameView);
+     /*   GridLayout gridLayout=findViewById(R.id.gameView);
         GridLayout.LayoutParams params= new LayoutParams();
         params.height=cardWidth;
         params.width=cardWidth;
         gridLayout.setLayoutParams(params);
+
+      */
 
         Log.d("width_layout",cardWidth+"");
         //一行有四个卡片，每个卡片占屏幕的四分之一
@@ -131,7 +276,7 @@ public class gameView extends GridLayout {
         for (int y = 0; y < NUM; y++) {
             for (int x = 0; x < NUM; x++) {
                 c = new Card(getContext());
-                c.setNum(2);
+
                 addView(c,cardWidth,cardHeight);
 
                 cardsMap[x][y] = c;
@@ -139,7 +284,74 @@ public class gameView extends GridLayout {
         }
     }
 
+    private void   addRandomNum(){
+        emptyPoints.clear();
 
-    private Card[][] cardsMap = new Card[NUM][NUM];
-    private List<Point> emptyPoints = new ArrayList<Point>();
+        for (int y = 0; y < NUM; y++) {
+            for (int x = 0; x < NUM; x++) {
+                if (cardsMap[x][y].getNum()<=0) {
+                    emptyPoints.add(new Point(x, y));
+                }
+            }
+        }
+
+        if (emptyPoints.size()>0) {
+
+            Point p = emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
+            cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
+
+            MainActivity.getMainActivity().getAnimLayer().createScaleTo1(cardsMap[p.x][p.y]);
+        }
+    }
+    private void checkComplete(){
+
+        boolean complete = true;
+
+        ALL:
+        for (int y = 0; y < NUM; y++) {
+            for (int x = 0; x < NUM; x++) {
+                if (cardsMap[x][y].getNum()==0||
+                        (x>0&&cardsMap[x][y].equals(cardsMap[x-1][y]))||
+                        (x<NUM-1&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
+                        (y>0&&cardsMap[x][y].equals(cardsMap[x][y-1]))||
+                        (y<NUM-1&&cardsMap[x][y].equals(cardsMap[x][y+1]))) {
+
+                    complete = false;
+                    break ALL;
+                }
+            }
+        }
+
+        if (complete) {
+            new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重新开始", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    startGame();
+                }
+            }).show();
+        }
+
+    }
+    public void startGame(){
+
+        MainActivity aty = MainActivity.getMainActivity();
+        aty.clearScore();
+        aty.showBestScore(aty.getScore());
+
+        for (int y = 0; y < NUM; y++) {
+            for (int x = 0; x <NUM; x++) {
+                cardsMap[x][y].setNum(0);
+            }
+        }
+
+        addRandomNum();
+        addRandomNum();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        startGame();
+    }
 }

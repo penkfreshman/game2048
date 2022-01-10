@@ -28,23 +28,24 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-       android:id="@+id/BestScore1"
+
 
        android:layout_marginLeft="100dp"
       >
        <TextView
            android:layout_width="60dp"
            android:layout_height="wrap_content"
-           android:id="@+id/Score"
+
            android:textSize="18dp"
            android:gravity="center_horizontal"
-           android:text="分数"
+           android:text="@string/Score_String"
            android:background="@color/button"
            android:textColor="@color/white" />
        <TextView
            android:layout_width="60dp"
            android:layout_height="wrap_content"
-             android:text="@string/Score"
+           android:id="@+id/Score"
+
            android:textSize="30dp"
            android:gravity="center"
            android:background="@color/button"
@@ -60,16 +61,17 @@
        <TextView
            android:layout_width="60dp"
            android:layout_height="wrap_content"
-           android:id="@+id/BestScore"
+
            android:textSize="18dp"
            android:gravity="center_horizontal"
-           android:text="最高分"
+           android:text="@string/bestScore_String"
            android:background="@color/button"
            android:textColor="@color/white" />
        <TextView
            android:layout_width="60dp"
            android:layout_height="wrap_content"
-             android:text="@string/Score"
+
+           android:id="@+id/BestScore"
            android:textSize="30dp"
            android:gravity="center"
            android:background="@color/button"
@@ -81,6 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageButton
+            android:id="@+id/previous"
             android:layout_marginLeft="250dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -88,6 +91,7 @@
             android:src="@color/button"
             />
         <ImageButton
+            android:id="@+id/restart"
             android:layout_marginLeft="20dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -105,13 +109,18 @@
 
 
     <com.example.game2048.gameView
-        android:id="@+id/gameView"
+        android:id="@+id/gameView_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-
-
         >
+
     </com.example.game2048.gameView>
+    <com.example.game2048.Anime
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/anime_layout">
+
+    </com.example.game2048.Anime>
 </FrameLayout>
 
 
