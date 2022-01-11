@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    tools:context=".BEGIN_Activity">
+
+    <ViewFlipper
+        android:id="@+id/select_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="473dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/easy"
+            tools:layout_conversion_absoluteHeight="198dp"
+            tools:layout_conversion_absoluteWidth="200dp"
+            tools:layout_editor_absoluteX="106dp"
+            tools:layout_editor_absoluteY="64dp" />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/medium"
+            tools:layout_conversion_absoluteHeight="198dp"
+            tools:layout_conversion_absoluteWidth="200dp"
+            tools:layout_editor_absoluteX="106dp"
+            tools:layout_editor_absoluteY="64dp" />
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/difficult"
+            tools:layout_conversion_absoluteHeight="198dp"
+            tools:layout_conversion_absoluteWidth="200dp"
+            tools:layout_editor_absoluteX="106dp"
+            tools:layout_editor_absoluteY="64dp" />
+    </ViewFlipper>
+
+    <LinearLayout
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_image">
+
+        <Button
+            android:backgroundTint="@color/button"
+            android:id="@+id/select_previous"
+            android:background="@drawable/ic_baseline_arrow_left_24"
+            android:layout_width="62dp"
+           android:layout_height="match_parent"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/textView"
+
+            android:layout_width="257dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="小-3X3"
+            android:textSize="28dp" />
+
+        <Button
+
+            android:backgroundTint="@color/button"
+            android:id="@+id/select_next"
+            android:layout_width="62dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_baseline_arrow_right_24"
+            android:layout_marginRight="20dp"
+           />
+    </LinearLayout>
+
+    <Button
+
+        android:background="#E44D42"
+        android:id="@+id/begin"
+        android:layout_width="235dp"
+        android:layout_height="51dp"
+        android:text="begin  paly"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

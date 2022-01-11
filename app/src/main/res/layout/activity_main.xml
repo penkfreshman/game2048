@@ -83,12 +83,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageButton
+
             android:id="@+id/previous"
             android:layout_marginLeft="250dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_baseline_refresh_24"
-            android:src="@color/button"
+
             />
         <ImageButton
             android:id="@+id/restart"
@@ -113,8 +114,8 @@
         android:id="@+id/gameView_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        >
 
+        >
     </com.example.game2048.gameView>
     <com.example.game2048.Anime
         android:layout_width="match_parent"

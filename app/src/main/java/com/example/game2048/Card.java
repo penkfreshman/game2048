@@ -19,7 +19,7 @@ public class Card extends FrameLayout {
         background = new View(getContext());
         lp = new LayoutParams(-1, -1);
         lp.setMargins(20, 20, 0, 0);
-        background.setBackgroundColor(0x33ffffff);
+        background.setBackground(getResources().getDrawable(R.drawable.card_bg));
         addView(background, lp);
 
         label = new TextView(getContext());
@@ -54,37 +54,42 @@ public class Card extends FrameLayout {
                 label.setBackgroundColor(0x00000000);
                 break;
             case 2:
-                label.setBackgroundColor(0xffeee4da);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_2));
                 break;
             case 4:
-                label.setBackgroundColor(0xffede0c8);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_4));
+
                 break;
             case 8:
-                label.setBackgroundColor(0xfff2b179);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_8));
                 break;
             case 16:
-                label.setBackgroundColor(0xfff59563);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_16));
                 break;
             case 32:
-                label.setBackgroundColor(0xfff67c5f);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_32));
                 break;
             case 64:
-                label.setBackgroundColor(0xfff65e3b);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_64));
                 break;
             case 128:
-                label.setBackgroundColor(0xffedcf72);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_128));
                 break;
             case 256:
-                label.setBackgroundColor(0xffedcc61);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_256));
+
                 break;
             case 512:
-                label.setBackgroundColor(0xffedc850);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_512));
+
                 break;
             case 1024:
-                label.setBackgroundColor(0xffedc53f);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_1024));
+
                 break;
             case 2048:
-                label.setBackgroundColor(0xffedc22e);
+                label.setBackground(getResources().getDrawable(R.drawable.bg_2048));
+
                 break;
             default:
                 label.setBackgroundColor(0xff3c3a32);

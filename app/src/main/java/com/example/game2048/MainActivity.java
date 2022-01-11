@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+
         initButton();
         mainActivity=this;
         View decorView = this.getWindow().getDecorView();
@@ -37,11 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         DisplayMetrics displayMetrics;
         displayMetrics = getResources().getDisplayMetrics();
-        int cardWidth;
-        cardWidth = displayMetrics.widthPixels;
+        int Width;
+        Width = displayMetrics.widthPixels;
 
-       fl.setMinimumHeight(cardWidth-40);
-
+       fl.setMinimumHeight(Width-40);
+       am_layout.setMinimumHeight(Width-40);
+        gv_layout.setMinimumHeight(Width-40);
 
 
         decorView.setSystemUiVisibility(

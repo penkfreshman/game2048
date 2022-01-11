@@ -17,10 +17,10 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 public class gameView extends GridLayout {
-    public static int NUM=4;
-    public static int CARD_WIDTH=0;
 
-    private Card[][] cardsMap = new Card[NUM][NUM];
+
+
+    private Card[][] cardsMap = new Card[config.NUM][config.NUM];
     private List<Point> emptyPoints = new ArrayList<Point>();
 
     public gameView(Context context) {
@@ -37,8 +37,9 @@ public class gameView extends GridLayout {
 
     private void initGameView(){
 
-       setColumnCount(NUM);
-       setBackgroundColor(getResources().getColor(R.color.theme2048));
+       setColumnCount(config.NUM);
+
+       setBackground(getResources().getDrawable(R.drawable.bg));
        addCards(GetCardWidth(),GetCardWidth());
 
 
@@ -76,8 +77,8 @@ public class gameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x = 0; x < NUM; x++) {
-            for (int y = NUM-1; y >=0; y--) {
+        for (int x = 0; x < config.NUM; x++) {
+            for (int y = config.NUM-1; y >=0; y--) {
 
                 for (int y1 = y-1; y1 >=0; y1--) {
                     if (cardsMap[x][y1].getNum()>0) {
@@ -114,17 +115,16 @@ public class gameView extends GridLayout {
 
         boolean merge = false;
 
-        for (int x = 0; x < NUM; x++) {
-            for (int y = 0; y < NUM; y++) {
+        for (int x = 0; x < config.NUM; x++) {
+            for (int y = 0; y < config.NUM; y++) {
 
-                for (int y1 = y+1; y1 <NUM; y1++) {
+                for (int y1 = y+1; y1 <config.NUM; y1++) {
                     if (cardsMap[x][y1].getNum()>0) {
 
                         if (cardsMap[x][y].getNum()<=0) {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
                             cardsMap[x][y].setNum(cardsMap[x][y1].getNum());
                             cardsMap[x][y1].setNum(0);
-
                             y--;
 
                             merge = true;
@@ -153,8 +153,8 @@ public class gameView extends GridLayout {
     private void SwipeRight() {
         boolean merge = false;
 
-        for (int y = 0; y < NUM; y++) {
-            for (int x = NUM-1; x >=0; x--) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = config.NUM-1; x >=0; x--) {
 
                 for (int x1 = x-1; x1 >=0; x1--) {
                     if (cardsMap[x1][y].getNum()>0) {
@@ -190,10 +190,10 @@ public class gameView extends GridLayout {
     private void SwipeLeft() {
         boolean merge = false;
 
-        for (int y = 0; y < NUM; y++) {
-            for (int x = 0; x < NUM; x++) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = 0; x < config.NUM; x++) {
 
-                for (int x1 = x+1; x1 < NUM; x1++) {
+                for (int x1 = x+1; x1 < config.NUM; x1++) {
                     if (cardsMap[x1][y].getNum()>0) {
 
                         if (cardsMap[x][y].getNum()<=0) {
@@ -225,7 +225,7 @@ public class gameView extends GridLayout {
             addRandomNum();
             checkComplete();
         }
-        
+
     }
 
     @Override
@@ -243,16 +243,17 @@ public class gameView extends GridLayout {
         displayMetrics = getResources().getDisplayMetrics();
 
         //获取屏幕信息
-        int cardWidth;
-        cardWidth = displayMetrics.widthPixels;
 
-        cardWidth=cardWidth-60;
-        Log.d("height1",cardWidth+" ");
+        config.CARD_WIDTH = displayMetrics.widthPixels;
+
+        config.CARD_WIDTH=config.CARD_WIDTH-60;
+        config.CARD_WIDTH=config.CARD_WIDTH/config.NUM;
+        Log.d("height1",config.CARD_WIDTH+" ");
 
 
-        Log.d("width_layout",cardWidth+"");
+        Log.d("width_layout",config.CARD_WIDTH+"");
         //一行有四个卡片，每个卡片占屏幕的四分之一
-        return  (cardWidth/NUM);
+        return config.CARD_WIDTH;
 
     }
 
@@ -262,8 +263,8 @@ public class gameView extends GridLayout {
 
         Log.d("width",cardWidth+"");
         Card c;
-        for (int y = 0; y < NUM; y++) {
-            for (int x = 0; x < NUM; x++) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = 0; x < config.NUM; x++) {
                 c = new Card(getContext());
 
                 addView(c,cardWidth,cardHeight);
@@ -276,8 +277,8 @@ public class gameView extends GridLayout {
     private void   addRandomNum(){
         emptyPoints.clear();
 
-        for (int y = 0; y < NUM; y++) {
-            for (int x = 0; x < NUM; x++) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = 0; x < config.NUM; x++) {
                 if (cardsMap[x][y].getNum()<=0) {
                     emptyPoints.add(new Point(x, y));
                 }
@@ -297,13 +298,13 @@ public class gameView extends GridLayout {
         boolean complete = true;
 
         ALL:
-        for (int y = 0; y < NUM; y++) {
-            for (int x = 0; x < NUM; x++) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = 0; x < config.NUM; x++) {
                 if (cardsMap[x][y].getNum()==0||
                         (x>0&&cardsMap[x][y].equals(cardsMap[x-1][y]))||
-                        (x<NUM-1&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
+                        (x<config.NUM-1&&cardsMap[x][y].equals(cardsMap[x+1][y]))||
                         (y>0&&cardsMap[x][y].equals(cardsMap[x][y-1]))||
-                        (y<NUM-1&&cardsMap[x][y].equals(cardsMap[x][y+1]))) {
+                        (y<config.NUM-1&&cardsMap[x][y].equals(cardsMap[x][y+1]))) {
 
                     complete = false;
                     break ALL;
@@ -328,8 +329,8 @@ public class gameView extends GridLayout {
         aty.clearScore();
         aty.showBestScore(aty.getScore());
 
-        for (int y = 0; y < NUM; y++) {
-            for (int x = 0; x <NUM; x++) {
+        for (int y = 0; y < config.NUM; y++) {
+            for (int x = 0; x <config.NUM; x++) {
                 cardsMap[x][y].setNum(0);
             }
         }
