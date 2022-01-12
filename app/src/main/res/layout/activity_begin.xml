@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/easy"
@@ -30,7 +30,7 @@
             tools:layout_conversion_absoluteWidth="200dp"
             tools:layout_editor_absoluteX="106dp"
             tools:layout_editor_absoluteY="64dp" />
-        <androidx.constraintlayout.utils.widget.ImageFilterView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/medium"
@@ -38,7 +38,7 @@
             tools:layout_conversion_absoluteWidth="200dp"
             tools:layout_editor_absoluteX="106dp"
             tools:layout_editor_absoluteY="64dp" />
-        <androidx.constraintlayout.utils.widget.ImageFilterView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/difficult"
@@ -77,16 +77,18 @@
            android:layout_height="match_parent"
             android:layout_marginLeft="20dp" />
 
-        <TextView
-            android:id="@+id/textView"
+        <TextSwitcher
+            android:id="@+id/tv_show_level"
 
             android:layout_width="257dp"
             android:layout_height="32dp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="小-3X3"
-            android:textSize="28dp" />
+
+            android:textSize="28dp" >
+
+        </TextSwitcher>
 
         <Button
 

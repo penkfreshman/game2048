@@ -1,5 +1,6 @@
 package com.example.game2048;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Point;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -22,6 +24,12 @@ public class gameView extends GridLayout {
 
     private Card[][] cardsMap = new Card[config.NUM][config.NUM];
     private List<Point> emptyPoints = new ArrayList<Point>();
+    private int[][] card_save = new int[config.NUM][config.NUM];
+    private int[][] card_save1 = new int[config.NUM][config.NUM];
+    private  int score[]=new int[2];
+    private  int flag=0;
+
+    MainActivity.Myhandler myhandler=new MainActivity.Myhandler(new WeakReference(MainActivity.getMainActivity()));
 
     public gameView(Context context) {
         super(context);
@@ -58,19 +66,49 @@ public class gameView extends GridLayout {
                         offsetX=motionEvent.getX()-startX;
                         offsetY=motionEvent.getY()-startY;
                         if(Math.abs(offsetX)>Math.abs(offsetY)){
-                            if(offsetX<-5) SwipeLeft();
-                            else if (offsetX>5) SwipeRight();
+                            if(offsetX<-5) {SwipeLeft();
+                            saveLayout();
+                             score[0]=MainActivity.getMainActivity().getreturnScore();
+                                flag++;
+                            if(flag==1)
+                                myhandler.sendEmptyMessage(0x123);
+
+
+                            }
+                            else if (offsetX>5) {SwipeRight();
+                            saveLayout();
+                                flag++;
+                            if(flag==1)
+                                    myhandler.sendEmptyMessage(0x123);
+
+
+
+                            }
                         }else{
-                            if(offsetY<-5) Swipeup();
-                            else if (offsetY>5) Swipedwon();
+                            if(offsetY<-5) {Swipeup();saveLayout();
+                                flag++;
+                            if(flag==1)
+                                myhandler.sendEmptyMessage(0x123);
+
+
+                            }
+                            else if (offsetY>5) {Swipedwon();saveLayout();
+                                flag++;
+                            if(flag==1)
+                                myhandler.sendEmptyMessage(0x123);
+
+
+                            }
                         }
 
                         break;
                     }
                 }
+                Log.d("updataUI",flag+"");
                 return true;
             }
         });
+
     }
 
     private void Swipedwon() {
@@ -94,7 +132,9 @@ public class gameView extends GridLayout {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x][y1].setNum(0);
+
                             MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+
                             merge = true;
                         }
 
@@ -132,7 +172,9 @@ public class gameView extends GridLayout {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x][y1].setNum(0);
+
                             MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+
                             merge = true;
                         }
 
@@ -170,7 +212,9 @@ public class gameView extends GridLayout {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x1][y].setNum(0);
+
                             MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+
                             merge = true;
                         }
 
@@ -212,6 +256,7 @@ public class gameView extends GridLayout {
                             cardsMap[x1][y].setNum(0);
 
                             MainActivity.getMainActivity().addScore(cardsMap[x][y].getNum());
+
                             merge = true;
                         }
 
@@ -248,10 +293,7 @@ public class gameView extends GridLayout {
 
         config.CARD_WIDTH=config.CARD_WIDTH-60;
         config.CARD_WIDTH=config.CARD_WIDTH/config.NUM;
-        Log.d("height1",config.CARD_WIDTH+" ");
 
-
-        Log.d("width_layout",config.CARD_WIDTH+"");
         //一行有四个卡片，每个卡片占屏幕的四分之一
         return config.CARD_WIDTH;
 
@@ -266,10 +308,10 @@ public class gameView extends GridLayout {
         for (int y = 0; y < config.NUM; y++) {
             for (int x = 0; x < config.NUM; x++) {
                 c = new Card(getContext());
-
                 addView(c,cardWidth,cardHeight);
-
                 cardsMap[x][y] = c;
+                       // Log.d("previous1",y+","+x+"    "+card_save1[x][y]+"");
+
             }
         }
     }
@@ -290,7 +332,7 @@ public class gameView extends GridLayout {
             Point p = emptyPoints.remove((int)(Math.random()*emptyPoints.size()));
             cardsMap[p.x][p.y].setNum(Math.random()>0.1?2:4);
 
-            MainActivity.getMainActivity().getAnimLayer().createScaleTo1(cardsMap[p.x][p.y]);
+           MainActivity.getMainActivity().getAnimLayer().createScaleTo1(cardsMap[p.x][p.y]);
         }
     }
     private void checkComplete(){
@@ -337,6 +379,7 @@ public class gameView extends GridLayout {
 
         addRandomNum();
         addRandomNum();
+        saveLayout();
     }
 
     @Override
@@ -344,4 +387,30 @@ public class gameView extends GridLayout {
         super.onSizeChanged(w, h, oldw, oldh);
         startGame();
     }
+
+    public void saveLayout(){
+        for (int y=0;y<config.NUM;y++)
+            for (int x=0;x<config.NUM;x++) {
+                card_save[x][y] = card_save1[x][y];
+                score[0]=score[1];
+                if (card_save[x][y] >0)
+                Log.d("previous2",y+","+x+"    "+card_save[x][y]+"");
+
+            }
+        for (int y=0;y<config.NUM;y++)
+            for (int x=0;x<config.NUM;x++)
+                card_save1[x][y] =cardsMap[x][y].getNum();
+                score[1]=MainActivity.getMainActivity().getreturnScore();
+
+    }
+    public  void previous(){
+
+            for (int y = 0; y < config.NUM; y++)
+                for (int x = 0; x < config.NUM; x++) {
+                    cardsMap[x][y].setNum(card_save[x][y]);
+                    card_save1[x][y] =cardsMap[x][y].getNum();
+                   // Log.d("previous3",y+","+x+"    "+card_save[x][y]+"");
+                }
+    }
+
 }

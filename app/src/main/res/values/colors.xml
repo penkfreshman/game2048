@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="theme2048">#AB997F</color>
+    <color name="backgroud">#9A8F6C</color>
     <color name="button">#E2817244</color>
     <color name="transparent">#C6E6DBDB</color>
 </resources>

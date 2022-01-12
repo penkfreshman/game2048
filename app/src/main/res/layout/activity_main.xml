@@ -28,7 +28,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-
+        android:background="@drawable/bg"
 
        android:layout_marginLeft="100dp"
       >
@@ -39,16 +39,17 @@
            android:textSize="18dp"
            android:gravity="center_horizontal"
            android:text="@string/Score_String"
-           android:background="@color/button"
+
            android:textColor="@color/white" />
        <TextView
            android:layout_width="60dp"
-           android:layout_height="wrap_content"
+           android:layout_height="40dp"
            android:id="@+id/Score"
-
-           android:textSize="30dp"
+            android:singleLine="true"
+           android:text="0"
+           android:textSize="18dp"
            android:gravity="center"
-           android:background="@color/button"
+
            android:textColor="@color/white"
            />
    </LinearLayout>
@@ -56,6 +57,7 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="vertical"
+             android:background="@drawable/bg"
         android:layout_marginLeft="10dp"
        >
        <TextView
@@ -65,16 +67,18 @@
            android:textSize="18dp"
            android:gravity="center_horizontal"
            android:text="@string/bestScore_String"
-           android:background="@color/button"
+
            android:textColor="@color/white" />
        <TextView
-           android:layout_width="60dp"
-           android:layout_height="wrap_content"
+           android:text=""
 
+           android:layout_width="60dp"
+           android:layout_height="40dp"
+           android:singleLine="true"
            android:id="@+id/BestScore"
-           android:textSize="30dp"
+           android:textSize="18dp"
            android:gravity="center"
-           android:background="@color/button"
+
            android:textColor="@color/white"
            />
         </LinearLayout>
@@ -88,7 +92,9 @@
             android:layout_marginLeft="250dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_baseline_refresh_24"
+            android:background="@drawable/bg"
+
+            android:src="@drawable/ic_baseline_refresh_24"
 
             />
         <ImageButton
@@ -96,9 +102,9 @@
             android:layout_marginLeft="20dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-          android:background="@drawable/ic_baseline_sync_24"
+          android:background="@drawable/bg"
 
-           android:src="@color/button"
+           android:src="@drawable/ic_baseline_sync_24"
             />
 
     </LinearLayout>

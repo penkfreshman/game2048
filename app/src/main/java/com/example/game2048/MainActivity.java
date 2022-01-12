@@ -1,9 +1,16 @@
 package com.example.game2048;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -11,14 +18,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.lang.ref.WeakReference;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private static MainActivity mainActivity=null;
     private TextView bt_score_tv;
     private  TextView score_tv;
     private ImageButton Restart;
-    private  ImageButton previous;
+    public   ImageButton previous;
     private  gameView gv_layout;
     private  Anime am_layout;
     private  int SCORE=0;
@@ -34,7 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
         initButton();
         mainActivity=this;
-        View decorView = this.getWindow().getDecorView();
+        previous.setOnClickListener(this);
+        Restart.setOnClickListener(this);
+
+        previous.setEnabled(false);
+        previous.setBackgroundColor(getResources().getColor(R.color.black));
+
 
         SAVE_MESSAGE+="layout4";
 
@@ -48,13 +62,17 @@ public class MainActivity extends AppCompatActivity {
         gv_layout.setMinimumHeight(Width-40);
 
 
-        decorView.setSystemUiVisibility(
+
+        View decorView = this.getWindow().getDecorView();
+      decorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
+
 
 
 
@@ -87,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
         saveScore(max);
         showBestScore(max);
 
-
+    }
+    public int getreturnScore(){
+        return SCORE;
     }
     public void clearScore(){
         SCORE=0;
@@ -96,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveScore(int s){
         SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
         editor.putInt(SAVE_MESSAGE,s);
+
         editor.commit();
     }
 
@@ -111,5 +132,52 @@ public class MainActivity extends AppCompatActivity {
     public  void showBestScore(int s){
         bt_score_tv.setText(s+"");
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.previous:
+
+                    gv_layout.previous();
+                break;
+            case R.id.restart:
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("是否重新开始")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                gv_layout.startGame();
+
+                            }
+                        })
+                        .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        }).create();
+                builder.show();
+                break;
+        }
+
+    }
+   static  class  Myhandler extends Handler{
+
+        private  WeakReference<MainActivity> activity;
+        public Myhandler(WeakReference<MainActivity> activity){
+            this.activity=activity;
+
+        }
+       @Override
+       public void handleMessage(@NonNull Message msg) {
+           super.handleMessage(msg);
+           if (msg.what == 0x123){
+               Log.d("updataUI","1");
+               MainActivity.getMainActivity().previous.setEnabled(true);
+               MainActivity.getMainActivity().previous.setBackground(MainActivity.getMainActivity().getResources().getDrawable(R.drawable.bg));
+       }
+       }
+   }
+
 
 }

@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_right_24.xml" value="0.20677083333333332" />
         <entry key="app/src/main/res/drawable/ic_baseline_refresh_24.xml" value="0.20729166666666668" />
+        <entry key="app/src/main/res/drawable/ic_baseline_refresh_24unable.xml" value="0.2078125" />
         <entry key="app/src/main/res/drawable/ic_baseline_sync_24.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.22291666666666668" />
         <entry key="app/src/main/res/layout/activity_begin.xml" value="0.22" />

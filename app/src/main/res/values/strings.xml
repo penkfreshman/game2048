@@ -2,4 +2,7 @@
     <string name="app_name">Game2048</string>
     <string name="Score_String">分数</string>
     <string name="bestScore_String">最高分</string>
+    <string name="easy">小-3X3</string>
+    <string name="mediu">中-4x4</string>
+    <string name="big">大-5x5</string>
 </resources>
