@@ -72,7 +72,6 @@ public class gameView extends GridLayout {
                         if(Math.abs(offsetX)>Math.abs(offsetY)){
                             if(offsetX<-5) {SwipeLeft();
                             saveLayout();
-                             score[0]=MainActivity.getMainActivity().getreturnScore();
                                 step++;
                             }
                             else if (offsetX>5) {SwipeRight();
@@ -391,16 +390,16 @@ public class gameView extends GridLayout {
         for (int y=0;y<config.NUM;y++)
             for (int x=0;x<config.NUM;x++) {
             card_save[x][y] = card_save1[x][y];
-                score[0]=score[1];
-            }
-
+            };
         for (int y=0;y<config.NUM;y++) {
             for (int x = 0; x < config.NUM; x++) {
                 card_save1[x][y] = cardsMap[x][y].getNum();
-                score[1] = MainActivity.getMainActivity().getreturnScore();
+
             }
         }
-
+        score[0]=score[1];
+        Log.d("score",score[0]+"");
+        score[1] = MainActivity.getMainActivity().getreturnScore();
     }
 
     public void loadLayout(){
@@ -409,26 +408,31 @@ public class gameView extends GridLayout {
             for (int x = 0; x < config.NUM; x++) {
                 card_save1[x][y] = sp.getInt("Items1" + x + y, 0);
                 card_save[x][y] = sp.getInt("Items" + x + y, 0);
-                score[0] =sp.getInt("score",0);
-                score[1]=sp.getInt("score1",0);
                cardsMap[x][y].setNum(card_save1[x][y]);
-                MainActivity.getMainActivity().showScore(score[1]);
-                MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
-               if(sp.getInt("step",0)>=1)
-                myhandler.sendEmptyMessage(0x123);
 
             }
         }
+        if(sp.getInt("step",0)>=1)
+            myhandler.sendEmptyMessage(0x123);
+        score[0] =sp.getInt("score",0);
+        score[1]=sp.getInt("score1",0);
+        MainActivity.getMainActivity().showScore(score[1]);
+        MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
 
     }
     public  void previous(){
-            for (int y = 0; y < config.NUM; y++)
+            for (int y = 0; y < config.NUM; y++){
                 for (int x = 0; x < config.NUM; x++) {
                     cardsMap[x][y].setNum(card_save[x][y]);
                     card_save1[x][y] =cardsMap[x][y].getNum();
-                    MainActivity.getMainActivity().showScore(score[0]);
-                                      // Log.d("previous3",y+","+x+"    "+card_save[x][y]+"");
-                }
+                                       // Log.d("previous3",y+","+x+"    "+card_save[x][y]+"");
+                }}
+
+        score[1]=score[0];
+            MainActivity.getMainActivity().updata_Score(score[0]);
+        MainActivity.getMainActivity().showScore(score[0]);
+        Log.d("score1",score[0]+"");
     }
+
 
 }

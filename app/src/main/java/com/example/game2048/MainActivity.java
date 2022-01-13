@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public  void showBestScore(int s){
         bt_score_tv.setText(s+"");
     }
+    public  void  updata_Score(int s){
+        SCORE=s;
+    }
 
     @Override
     public void onClick(View view) {
@@ -203,7 +206,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
         SharedPreferences.Editor editor1=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE).edit();
         is_Destory[config.NUM-3]=true;
-        for (int i=0;i<config.NUM;i++)
+        for (int i=0;i<is_Destory.length;i++)
             editor1.putBoolean("Item" + i, is_Destory[i]);
         editor1.apply();
 
