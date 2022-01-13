@@ -70,20 +70,28 @@ public class gameView extends GridLayout {
                         offsetX=motionEvent.getX()-startX;
                         offsetY=motionEvent.getY()-startY;
                         if(Math.abs(offsetX)>Math.abs(offsetY)){
-                            if(offsetX<-5) {SwipeLeft();
+                            if(offsetX<-5) {
+
+                                SwipeLeft();
                             saveLayout();
                                 step++;
                             }
-                            else if (offsetX>5) {SwipeRight();
+                            else if (offsetX>5) {
+                               // backgoudSound.getInstance(getContext()).play(1);
+                                SwipeRight();
                             saveLayout();
                                 step++;
 
                             }
                         }else{
-                            if(offsetY<-5) {Swipeup();saveLayout();
+                            if(offsetY<-5) {
+                               // backgoudSound.getInstance(getContext()).play(1);
+                                Swipeup();saveLayout();
                                 step++;
                             }
-                            else if (offsetY>5) {Swipedwon();saveLayout();
+                            else if (offsetY>5) {
+                              //  backgoudSound.getInstance(getContext()).play(1);
+                                Swipedwon();saveLayout();
                                 step++;
 
                             }
@@ -119,6 +127,7 @@ public class gameView extends GridLayout {
                             merge = true;
                         }else if (cardsMap[x][y].equals(cardsMap[x][y1])) {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            backgoudSound.getInstance(getContext()).play(3);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x][y1].setNum(0);
 
@@ -159,6 +168,7 @@ public class gameView extends GridLayout {
                             merge = true;
                         }else if (cardsMap[x][y].equals(cardsMap[x][y1])) {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x][y1],cardsMap[x][y], x, x, y1, y);
+                            backgoudSound.getInstance(getContext()).play(3);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x][y1].setNum(0);
 
@@ -199,6 +209,7 @@ public class gameView extends GridLayout {
                             merge = true;
                         }else if (cardsMap[x][y].equals(cardsMap[x1][y])) {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+                            backgoudSound.getInstance(getContext()).play(3);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x1][y].setNum(0);
 
@@ -241,6 +252,7 @@ public class gameView extends GridLayout {
 
                         }else if (cardsMap[x][y].equals(cardsMap[x1][y])) {
                             MainActivity.getMainActivity().getAnimLayer().createMoveAnim(cardsMap[x1][y], cardsMap[x][y],x1, x, y, y);
+                            backgoudSound.getInstance(getContext()).play(3);
                             cardsMap[x][y].setNum(cardsMap[x][y].getNum()*2);
                             cardsMap[x1][y].setNum(0);
 
@@ -344,6 +356,7 @@ public class gameView extends GridLayout {
         }
 
         if (complete) {
+            backgoudSound.getInstance(getContext()).play(4);
             new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重新开始", new DialogInterface.OnClickListener() {
 
                 @Override
@@ -412,12 +425,14 @@ public class gameView extends GridLayout {
 
             }
         }
-        if(sp.getInt("step",0)>=1)
-            myhandler.sendEmptyMessage(0x123);
+        if(sp.getInt("step",0)<1)
+            myhandler.sendEmptyMessage(0x111);
+
         score[0] =sp.getInt("score",0);
         score[1]=sp.getInt("score1",0);
         MainActivity.getMainActivity().showScore(score[1]);
         MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
+
 
     }
     public  void previous(){
@@ -431,7 +446,7 @@ public class gameView extends GridLayout {
         score[1]=score[0];
             MainActivity.getMainActivity().updata_Score(score[0]);
         MainActivity.getMainActivity().showScore(score[0]);
-        Log.d("score1",score[0]+"");
+       // Log.d("score1",score[0]+"");
     }
 
 

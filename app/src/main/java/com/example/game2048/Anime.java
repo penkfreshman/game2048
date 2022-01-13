@@ -91,7 +91,7 @@ public class Anime  extends FrameLayout {
        ScaleAnimation sa = new ScaleAnimation(0.1f, 1, 0.1f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(100);
         target.setAnimation(null);
-
+        backgoudSound.getInstance(getContext()).play(1);
         target.getLabel().startAnimation(sa);
 
 

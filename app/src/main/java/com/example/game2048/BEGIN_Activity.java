@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextSwitcher;
@@ -29,11 +30,18 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_begin);
+        backgoudSound.getInstance(BEGIN_Activity.this);
         initButton();
         config.NUM=array[Index];
+
         begin.setOnClickListener(this);
         next.setOnClickListener(this);
         previous.setOnClickListener(this);
+
+
+
+
+
 
         switcher.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -57,33 +65,53 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
        case  R.id.begin:
+           backgoudSound.getInstance(this).play(6);
            Intent intent=new Intent(this,MainActivity.class);
 
            startActivity(intent);
             break;
             case R.id.select_previous:
-
-                Index=(Index-1)%3;
-                config.NUM=array[Math.abs(Index)];
-                Log.d("select",Index+"");
-                VF.setInAnimation(getApplicationContext(),R.anim.animate_right);
-
-                switcher.setText(getResources().getString(text[Math.abs(Index)]));
-                VF.showPrevious();
+                backgoudSound.getInstance(this).play(6);
+                previous_page();
                 break;
             case R.id.select_next:
-                Index=(Index+1)%3;
-                config.NUM=array[Math.abs(Index)];
-                VF.setInAnimation(getApplicationContext(),R.anim.animated_left);
-                Log.d("select",Index+"");
-
-                switcher.setText(getResources().getString(text[Math.abs(Index)]));
-                VF.showNext();
+                backgoudSound.getInstance(this).play(6);
+                next_page();
                 break;
         }
+    }
+    public void next_page(){
+        backgoudSound.getInstance(BEGIN_Activity.this).play(2);
+        Index=(Index+1)%array.length;
+        config.NUM=array[Math.abs(Index)];
+        VF.setInAnimation(getApplicationContext(),R.anim.animated_left);
+        Log.d("select_R",Index+"");
+
+        switcher.setText(getResources().getString(text[Math.abs(Index)]));
+        VF.showNext();
+    }
+    public  void  previous_page(){
+        backgoudSound.getInstance(BEGIN_Activity.this).play(2);
+        if (Index==0) Index=2-array.length;
+        Index=Math.abs((Index-1)%array.length);
+
+        config.NUM=array[Index];
+        Log.d("select_L",Index+"");
+        VF.setInAnimation(getApplicationContext(),R.anim.animate_right);
+
+        switcher.setText(getResources().getString(text[Math.abs(Index)]));
+        VF.showPrevious();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+       // backgoudSound.getInstance(this).release();
     }
 }

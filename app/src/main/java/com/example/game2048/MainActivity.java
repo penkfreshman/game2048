@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //backgoudSound.getInstance(this);
         game_to_switch();
         setContentView(R.layout.activity_main);
         initButton();
@@ -93,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+    }
+
+
+
     public  Anime  getAnimLayer(){
         return am_layout;
 
@@ -130,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     public void showScore(int s){
         score_tv.setText(s+"");
     }
@@ -145,10 +152,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.previous:
-
+                if (gv_layout.step<1)
+                    backgoudSound.getInstance(this).play(5);
+                else
+                    backgoudSound.getInstance(this).play(6);
                     gv_layout.previous();
                 break;
             case R.id.restart:
+                backgoudSound.getInstance(this).play(6);
                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("是否重新开始")
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
@@ -181,11 +192,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            super.handleMessage(msg);
            switch (msg.what){
                case 0x123:
-                   MainActivity.getMainActivity().previous.setEnabled(true);
+                  // MainActivity.getMainActivity().previous.setEnabled(true);
                    MainActivity.getMainActivity().previous.setBackground(MainActivity.getMainActivity().getResources().getDrawable(R.drawable.bg));
                    break;
                case 0x111:
-                   MainActivity.getMainActivity().previous.setEnabled(false);
+                 //  MainActivity.getMainActivity().previous.setEnabled(false);
                    MainActivity.getMainActivity().previous.setBackgroundColor(MainActivity.getMainActivity().getResources().getColor(R.color.black));
                    break;
 
@@ -222,6 +233,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("score1",gv_layout.score[1]);
         editor.putInt("step",gv_layout.step);
         editor.apply();
+
 
     }
 
