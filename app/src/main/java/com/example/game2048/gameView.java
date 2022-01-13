@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -24,10 +25,11 @@ public class gameView extends GridLayout {
 
     private Card[][] cardsMap = new Card[config.NUM][config.NUM];
     private List<Point> emptyPoints = new ArrayList<Point>();
-    private int[][] card_save = new int[config.NUM][config.NUM];
-    private int[][] card_save1 = new int[config.NUM][config.NUM];
-    private  int score[]=new int[2];
-    private  int flag=0;
+    public int[][] card_save = new int[config.NUM][config.NUM];
+    public int[][] card_save1 = new int[config.NUM][config.NUM];
+    public   int score[]=new int[2];
+    public   int step=0;
+
 
     MainActivity.Myhandler myhandler=new MainActivity.Myhandler(new WeakReference(MainActivity.getMainActivity()));
 
@@ -45,9 +47,11 @@ public class gameView extends GridLayout {
 
     private void initGameView(){
 
+        Log.d("lifecycle",2+"");
        setColumnCount(config.NUM);
 
        setBackground(getResources().getDrawable(R.drawable.bg));
+      // Log.d("lifecycle",1+"");
        addCards(GetCardWidth(),GetCardWidth());
 
 
@@ -69,42 +73,28 @@ public class gameView extends GridLayout {
                             if(offsetX<-5) {SwipeLeft();
                             saveLayout();
                              score[0]=MainActivity.getMainActivity().getreturnScore();
-                                flag++;
-                            if(flag==1)
-                                myhandler.sendEmptyMessage(0x123);
-
-
+                                step++;
                             }
                             else if (offsetX>5) {SwipeRight();
                             saveLayout();
-                                flag++;
-                            if(flag==1)
-                                    myhandler.sendEmptyMessage(0x123);
-
-
+                                step++;
 
                             }
                         }else{
                             if(offsetY<-5) {Swipeup();saveLayout();
-                                flag++;
-                            if(flag==1)
-                                myhandler.sendEmptyMessage(0x123);
-
-
+                                step++;
                             }
                             else if (offsetY>5) {Swipedwon();saveLayout();
-                                flag++;
-                            if(flag==1)
-                                myhandler.sendEmptyMessage(0x123);
-
+                                step++;
 
                             }
                         }
-
+                        if(step==1)
+                            myhandler.sendEmptyMessage(0x123);
                         break;
                     }
                 }
-                Log.d("updataUI",flag+"");
+
                 return true;
             }
         });
@@ -366,7 +356,7 @@ public class gameView extends GridLayout {
 
     }
     public void startGame(){
-
+        myhandler.sendEmptyMessage(0x111);
         MainActivity aty = MainActivity.getMainActivity();
         aty.clearScore();
         aty.showBestScore(aty.getScore());
@@ -380,36 +370,64 @@ public class gameView extends GridLayout {
         addRandomNum();
         addRandomNum();
         saveLayout();
+       step=0;
+
     }
+
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        if(MainActivity.is_Destory[config.NUM-3]==true)
+        { loadLayout();
+        MainActivity.is_Destory[config.NUM-3]=false;
+        }
+        else
         startGame();
+        //Log.d("lifecaycle",2+"");
     }
 
     public void saveLayout(){
         for (int y=0;y<config.NUM;y++)
             for (int x=0;x<config.NUM;x++) {
-                card_save[x][y] = card_save1[x][y];
+            card_save[x][y] = card_save1[x][y];
                 score[0]=score[1];
-                if (card_save[x][y] >0)
-                Log.d("previous2",y+","+x+"    "+card_save[x][y]+"");
+            }
+
+        for (int y=0;y<config.NUM;y++) {
+            for (int x = 0; x < config.NUM; x++) {
+                card_save1[x][y] = cardsMap[x][y].getNum();
+                score[1] = MainActivity.getMainActivity().getreturnScore();
+            }
+        }
+
+    }
+
+    public void loadLayout(){
+        SharedPreferences sp= MainActivity.getMainActivity().getApplicationContext().getSharedPreferences("Layout"+config.NUM,Context.MODE_PRIVATE);
+        for (int y=0;y<config.NUM;y++) {
+            for (int x = 0; x < config.NUM; x++) {
+                card_save1[x][y] = sp.getInt("Items1" + x + y, 0);
+                card_save[x][y] = sp.getInt("Items" + x + y, 0);
+                score[0] =sp.getInt("score",0);
+                score[1]=sp.getInt("score1",0);
+               cardsMap[x][y].setNum(card_save1[x][y]);
+                MainActivity.getMainActivity().showScore(score[1]);
+                MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
+               if(sp.getInt("step",0)>=1)
+                myhandler.sendEmptyMessage(0x123);
 
             }
-        for (int y=0;y<config.NUM;y++)
-            for (int x=0;x<config.NUM;x++)
-                card_save1[x][y] =cardsMap[x][y].getNum();
-                score[1]=MainActivity.getMainActivity().getreturnScore();
+        }
 
     }
     public  void previous(){
-
             for (int y = 0; y < config.NUM; y++)
                 for (int x = 0; x < config.NUM; x++) {
                     cardsMap[x][y].setNum(card_save[x][y]);
                     card_save1[x][y] =cardsMap[x][y].getNum();
-                   // Log.d("previous3",y+","+x+"    "+card_save[x][y]+"");
+                    MainActivity.getMainActivity().showScore(score[0]);
+                                      // Log.d("previous3",y+","+x+"    "+card_save[x][y]+"");
                 }
     }
 

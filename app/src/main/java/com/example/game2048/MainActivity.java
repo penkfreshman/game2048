@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -32,25 +33,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  Anime am_layout;
     private  int SCORE=0;
     private FrameLayout fl;
-    private String SAVE_MESSAGE="";
+
+    static boolean []is_Destory= new boolean[config.NUM];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        game_to_switch();
         setContentView(R.layout.activity_main);
-
-
         initButton();
         mainActivity=this;
         previous.setOnClickListener(this);
         Restart.setOnClickListener(this);
-
-        previous.setEnabled(false);
-        previous.setBackgroundColor(getResources().getColor(R.color.black));
-
-
-        SAVE_MESSAGE+="layout4";
 
         DisplayMetrics displayMetrics;
         displayMetrics = getResources().getDisplayMetrics();
@@ -76,6 +71,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+    }
+    public void  game_to_switch(){
+        SharedPreferences sp=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE);
+        for(int i=0;i<is_Destory.length;i++) {
+            is_Destory[i] = sp.getBoolean("Item" + i, false);
+            if (is_Destory[i])
+            Log.d("isuse",1+""+i);
+            else  Log.d("isuse",0+""+i);
+
+        }
     }
     public void  initButton(){
         bt_score_tv=findViewById(R.id.BestScore);
@@ -114,14 +119,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showScore(SCORE);
     }
     public void saveScore(int s){
-        SharedPreferences.Editor editor=getSharedPreferences("save",MODE_PRIVATE).edit();
-        editor.putInt(SAVE_MESSAGE,s);
+        SharedPreferences.Editor editor=getSharedPreferences("Layout"+config.NUM,MODE_PRIVATE).edit();
+        editor.putInt("BestScore",s);
 
-        editor.commit();
+        editor.apply();
     }
 
     public  int getScore(){
-        return getSharedPreferences("save",MODE_PRIVATE).getInt(SAVE_MESSAGE,0);
+        return getSharedPreferences("Layout"+config.NUM,MODE_PRIVATE).getInt("BestScore",0);
     }
 
 
@@ -171,13 +176,55 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        @Override
        public void handleMessage(@NonNull Message msg) {
            super.handleMessage(msg);
-           if (msg.what == 0x123){
-               Log.d("updataUI","1");
-               MainActivity.getMainActivity().previous.setEnabled(true);
-               MainActivity.getMainActivity().previous.setBackground(MainActivity.getMainActivity().getResources().getDrawable(R.drawable.bg));
-       }
+           switch (msg.what){
+               case 0x123:
+                   MainActivity.getMainActivity().previous.setEnabled(true);
+                   MainActivity.getMainActivity().previous.setBackground(MainActivity.getMainActivity().getResources().getDrawable(R.drawable.bg));
+                   break;
+               case 0x111:
+                   MainActivity.getMainActivity().previous.setEnabled(false);
+                   MainActivity.getMainActivity().previous.setBackgroundColor(MainActivity.getMainActivity().getResources().getColor(R.color.black));
+                   break;
+
+           }
+
        }
    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
 
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor editor1=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE).edit();
+        is_Destory[config.NUM-3]=true;
+        for (int i=0;i<config.NUM;i++)
+            editor1.putBoolean("Item" + i, is_Destory[i]);
+        editor1.apply();
+
+        SharedPreferences sp= getSharedPreferences("Layout"+config.NUM, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        for (int y=0;y<config.NUM;y++) {
+            for (int x = 0; x < config.NUM; x++) {
+                editor.putInt("Items1" + x + y, gv_layout.card_save1[x][y]);
+                editor.putInt("Items" + x + y, gv_layout.card_save[x][y]);
+            }
+        }
+        editor.putInt("score",gv_layout.score[0]);
+        editor.putInt("score1",gv_layout.score[1]);
+        editor.putInt("step",gv_layout.step);
+        editor.apply();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+    }
 }
