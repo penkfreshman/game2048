@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  int SCORE=0;
     private FrameLayout fl;
 
-    static boolean []is_Destory= new boolean[config.NUM];
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initButton();
         mainActivity=this;
+
+        if (tool.FLAG_TO_CONTROL_MUSIC)
+            backgoudSound.getInstance(this).play_backgroud(this);
+
+
         previous.setOnClickListener(this);
         Restart.setOnClickListener(this);
 
@@ -74,9 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void  game_to_switch(){
         SharedPreferences sp=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE);
-        for(int i=0;i<is_Destory.length;i++) {
-            is_Destory[i] = sp.getBoolean("Item" + i, false);
-            if (is_Destory[i])
+        for(int i=0;i<tool.is_Destory.length;i++) {
+            tool.is_Destory[i] = sp.getBoolean("Item" + i, false);
+            if (tool.is_Destory[i])
             Log.d("isuse",1+""+i);
             else  Log.d("isuse",0+""+i);
 
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-
+        gv_layout.refresh_music();
         super.onResume();
     }
 
@@ -216,9 +222,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor editor1=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE).edit();
-        is_Destory[config.NUM-3]=true;
-        for (int i=0;i<is_Destory.length;i++)
-            editor1.putBoolean("Item" + i, is_Destory[i]);
+        tool.is_Destory[config.NUM-3]=true;
+        for (int i=0;i<tool.is_Destory.length;i++)
+            editor1.putBoolean("Item" + i, tool.is_Destory[i]);
         editor1.apply();
 
         SharedPreferences sp= getSharedPreferences("Layout"+config.NUM, Context.MODE_PRIVATE);
@@ -233,13 +239,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putInt("score1",gv_layout.score[1]);
         editor.putInt("step",gv_layout.step);
         editor.apply();
-
+        backgoudSound.getInstance(this).BG_stop();
 
     }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
 
     }
 }

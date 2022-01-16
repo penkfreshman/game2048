@@ -356,6 +356,7 @@ public class gameView extends GridLayout {
         }
 
         if (complete) {
+            backgoudSound.getInstance(getContext()).BG_stop();
             backgoudSound.getInstance(getContext()).play(4);
             new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重新开始", new DialogInterface.OnClickListener() {
 
@@ -383,6 +384,7 @@ public class gameView extends GridLayout {
         addRandomNum();
         saveLayout();
        step=0;
+        refresh_music();
 
     }
 
@@ -390,9 +392,9 @@ public class gameView extends GridLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        if(MainActivity.is_Destory[config.NUM-3]==true)
+        if(tool.is_Destory[config.NUM-3]==true)
         { loadLayout();
-        MainActivity.is_Destory[config.NUM-3]=false;
+        tool.is_Destory[config.NUM-3]=false;
         }
         else
         startGame();
@@ -432,7 +434,7 @@ public class gameView extends GridLayout {
         score[1]=sp.getInt("score1",0);
         MainActivity.getMainActivity().showScore(score[1]);
         MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
-
+        refresh_music();
 
     }
     public  void previous(){
@@ -447,6 +449,12 @@ public class gameView extends GridLayout {
             MainActivity.getMainActivity().updata_Score(score[0]);
         MainActivity.getMainActivity().showScore(score[0]);
        // Log.d("score1",score[0]+"");
+    }
+    public void refresh_music(){
+        backgoudSound.getInstance(getContext()).BG_stop();
+        if(tool.FLAG_TO_CONTROL_MUSIC)
+            backgoudSound.getInstance(getContext()).play_backgroud(getContext());
+
     }
 
 

@@ -1,7 +1,9 @@
 package com.example.game2048;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -23,9 +26,14 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
     private TextSwitcher switcher;
     private  Button next;
     private  Button begin;
+    private ImageButton Music_Control;
+    private ConstraintLayout layout;
+
     private final int array[]={3,4,5};
     private  final  int  text[]={R.string.easy,R.string.mediu,R.string.big};
     private int Index=0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +45,35 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
         begin.setOnClickListener(this);
         next.setOnClickListener(this);
         previous.setOnClickListener(this);
+        Music_Control.setOnClickListener(this);
 
+
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            float x1,x=0;
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+
+                switch (motionEvent.getAction()){
+
+                    case MotionEvent.ACTION_DOWN:
+                        x1=motionEvent.getX();
+
+                        break;
+                    case MotionEvent.ACTION_UP:{
+                        x=motionEvent.getX()-x1;
+                        Log.d("dec",x1+"");
+                        if (x>5)  { previous_page();}
+                        else if (x<-5) {next_page();}
+                        break;
+
+                }
+
+                }
+
+                return true;
+            }
+        });
 
 
 
@@ -62,6 +98,8 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
         next=findViewById(R.id.select_next);
         begin=findViewById(R.id.begin);
         switcher=findViewById(R.id.tv_show_level);
+        Music_Control=findViewById(R.id.imageButton);
+        layout=findViewById(R.id.begin_page);
 
     }
 
@@ -74,6 +112,7 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
            backgoudSound.getInstance(this).play(6);
            Intent intent=new Intent(this,MainActivity.class);
 
+
            startActivity(intent);
             break;
             case R.id.select_previous:
@@ -84,6 +123,15 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
                 backgoudSound.getInstance(this).play(6);
                 next_page();
                 break;
+            case  R.id.imageButton:
+                if(tool.FLAG_TO_CONTROL_MUSIC) {
+                    tool.FLAG_TO_CONTROL_MUSIC=false;
+                    Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_off_24));
+                    backgoudSound.getInstance(this).BG_stop();
+                }else {
+                    Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_note_24));
+                    tool.FLAG_TO_CONTROL_MUSIC=true;
+                }
         }
     }
     public void next_page(){
