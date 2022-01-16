@@ -79,9 +79,20 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\pen\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="color" value="a39c9c" />
+                                                <entry key="imagePath" value="C:\Users\pen\AppData\Local\Temp\baseline_filter_2_24.xml" />
                                                 <entry key="scalingPercent" value="74" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="foregroundClipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="file:/E:/androidSDK/icons/material/materialicons/filter_2/baseline_filter_2_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -132,7 +143,6 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="foregroundAssetType" value="CLIP_ART" />
                                     </map>
                                   </option>
