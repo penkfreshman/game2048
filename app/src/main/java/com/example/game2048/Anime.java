@@ -99,7 +99,7 @@ public class Anime  extends FrameLayout {
 
       RotateYAnimation rotateXAnimation = new RotateYAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f,
                 Animation.RELATIVE_TO_SELF, 0.5f);
-        rotateXAnimation.setDuration(2000);
+        rotateXAnimation.setDuration(1000);
 
         rotateXAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override

@@ -64,6 +64,12 @@ public class Card extends FrameLayout {
                 break;
             case 4:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_4));
+                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
+                    MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
+                    backgoudSound.getInstance(getContext()).play(8);
+                    tag512=false;
+                    tool.FIRSR_TO_512[config.NUM-3]=false;
+                }
                 break;
             case 8:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_8));
@@ -93,12 +99,7 @@ public class Card extends FrameLayout {
                 break;
             case 512:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_512));
-                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
-                    MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
-                    backgoudSound.getInstance(getContext()).play(8);
-                    tag512=false;
-                    tool.FIRSR_TO_512[config.NUM-3]=false;
-                }
+
                 MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
                 break;
             case 1024:

@@ -386,6 +386,8 @@ public class gameView extends GridLayout {
        step=0;
         refresh_music();
         tool.FIRST_To_64[config.NUM-3]=true;
+        tool.FIRSR_TO_512[config.NUM-3]=true;
+        tool.FIRSR_TO_1024[config.NUM-3]=true;
 
     }
 
