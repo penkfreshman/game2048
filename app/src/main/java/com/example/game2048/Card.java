@@ -2,14 +2,20 @@
 
 package com.example.game2048;
 import android.content.Context;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+
+
 public class Card extends FrameLayout {
     private TextView label;
     private View background;
+    private boolean tag64=true;
+    private  boolean tag512=true;
+    private  boolean tag1024=true;
 
     public Card(Context context) {
         super(context);
@@ -58,7 +64,6 @@ public class Card extends FrameLayout {
                 break;
             case 4:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_4));
-
                 break;
             case 8:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_8));
@@ -71,9 +76,16 @@ public class Card extends FrameLayout {
                 break;
             case 64:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_64));
+                if(tag64&&tool.FIRST_To_64[config.NUM-3]){
+                MainActivity.getMainActivity().getAnimLayer().create64(this);
+                backgoudSound.getInstance(getContext()).play(7);
+                tag64=false;
+                tool.FIRST_To_64[config.NUM-3]=false;
+                }
                 break;
             case 128:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_128));
+
                 break;
             case 256:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_256));
@@ -81,11 +93,23 @@ public class Card extends FrameLayout {
                 break;
             case 512:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_512));
-
+                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
+                    MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
+                    backgoudSound.getInstance(getContext()).play(8);
+                    tag512=false;
+                    tool.FIRSR_TO_512[config.NUM-3]=false;
+                }
+                MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
                 break;
             case 1024:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_1024));
-
+                MainActivity.getMainActivity().getAnimLayer().play_animation1024();
+                if(tag1024&&tool.FIRSR_TO_1024[config.NUM-3]){
+                    MainActivity.getMainActivity().getAnimLayer().play_animation1024();
+                    backgoudSound.getInstance(getContext()).play(9);
+                    tag1024=false;
+                    tool.FIRSR_TO_1024[config.NUM-3]=false;
+                }
                 break;
             case 2048:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_2048));

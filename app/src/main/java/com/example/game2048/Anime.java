@@ -2,17 +2,17 @@ package com.example.game2048;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +93,69 @@ public class Anime  extends FrameLayout {
         target.setAnimation(null);
         backgoudSound.getInstance(getContext()).play(1);
         target.getLabel().startAnimation(sa);
+    }
+
+    public void  create64(Card taget){
+
+      RotateYAnimation rotateXAnimation = new RotateYAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        rotateXAnimation.setDuration(2000);
+
+        rotateXAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+                taget.setNum(0);
+                taget.getLabel().setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_24));
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                taget.setNum(64);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+
+            }
+        });
+        taget.startAnimation(rotateXAnimation);
+    }
+
+    public    void   paly_animation(Context context){
+        new ParticleSystem(MainActivity.getMainActivity(), 10, R.drawable.star1, 1000)
+                .setSpeedModuleAndAngleRange(0.01f, 0.02f, 0, 70)
+
+                .setAcceleration(0f, 80)
+                .emit(-50, 100, 5, 5000);
+
+        new ParticleSystem(MainActivity.getMainActivity(), 10, R.drawable.star1, 5000)
+                .setSpeedModuleAndAngleRange(0.01f, 0.2f, 0, 70)
+
+                .setAcceleration(0f, 80)
+                .emit(-50, 300, 5, 5000);
+
+        new ParticleSystem(MainActivity.getMainActivity(), 10, R.drawable.star1, 5000)
+                .setSpeedModuleAndAngleRange(0.01f, 0.2f, 0, 90)
+
+                .setAcceleration(0f, 80)
+                .emit(-50,600 , 5, 10000);
+
+        new ParticleSystem(MainActivity.getMainActivity(), 10, R.drawable.star1, 5000)
+                .setSpeedModuleAndAngleRange(0.01f, 0.2f, 0, 90)
+
+                .setAcceleration(0f, 80)
+                .emit(-50,900 , 5, 5000);
+
+    }
+    public   void  play_animation1024(){
+
+        new ParticleSystem(MainActivity.getMainActivity(), 100, R.drawable.bg_1024_anime, 3000)
+                .setSpeedModuleAndAngleRange(0.05f, 0.05f, 0, 360)
+                .setRotationSpeed(30)
+                .setAcceleration(0, 90)
+                .emit(600,1000, 300,9000);
 
 
     }

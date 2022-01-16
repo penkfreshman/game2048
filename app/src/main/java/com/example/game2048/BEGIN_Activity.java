@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 import android.widget.ViewSwitcher;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 public class BEGIN_Activity extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -46,6 +48,9 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
         next.setOnClickListener(this);
         previous.setOnClickListener(this);
         Music_Control.setOnClickListener(this);
+        backgoudSound.getInstance(this).preload();
+
+
 
 
         layout.setOnTouchListener(new View.OnTouchListener() {
@@ -116,8 +121,10 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
            startActivity(intent);
             break;
             case R.id.select_previous:
+
                 backgoudSound.getInstance(this).play(6);
                 previous_page();
+
                 break;
             case R.id.select_next:
                 backgoudSound.getInstance(this).play(6);
@@ -162,4 +169,5 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
         super.onPause();
        // backgoudSound.getInstance(this).release();
     }
+
 }

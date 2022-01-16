@@ -17,7 +17,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.lang.ref.WeakReference;
 
@@ -33,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  Anime am_layout;
     private  int SCORE=0;
     private FrameLayout fl;
-
+    private  ImageView imageView;
 
 
 
@@ -247,7 +251,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
     }
+
 }

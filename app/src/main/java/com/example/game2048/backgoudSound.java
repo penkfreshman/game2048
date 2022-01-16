@@ -26,14 +26,14 @@ public class backgoudSound {
     }
 
     private backgoudSound(Context context) {
-        asyncPlayer=new AsyncPlayer(Tag);
 
-        soundPool = new SoundPool(3, AudioManager.STREAM_MUSIC, 0);
+
+        soundPool = new SoundPool(9, AudioManager.STREAM_MUSIC, 0);
         //加载音频文件
         if(Build.VERSION.SDK_INT > 21){
             SoundPool.Builder builder = new SoundPool.Builder();
             //传入音频数量
-            builder.setMaxStreams(5);
+            builder.setMaxStreams(9);
             //AudioAttributes是一个封装音频各种属性的方法
             AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
             //设置音频流的合适的属性
@@ -42,7 +42,7 @@ public class backgoudSound {
             builder.setAudioAttributes(attrBuilder.build());
             soundPool = builder.build();
         }else{
-            soundPool = new SoundPool(6, AudioManager.STREAM_MUSIC, 0);
+            soundPool = new SoundPool(9, AudioManager.STREAM_MUSIC, 0);
         }
         //
         soundmap.put(1, soundPool.load(context, R.raw.swiper_to_play, 1));
@@ -51,7 +51,13 @@ public class backgoudSound {
         soundmap.put(4, soundPool.load(context, R.raw.game_failed, 1));
         soundmap.put(5, soundPool.load(context, R.raw.unenable, 1));
         soundmap.put(6, soundPool.load(context, R.raw.button, 1));
+        soundmap.put(7, soundPool.load(context, R.raw.musci_64, 2));
+        soundmap.put(8, soundPool.load(context, R.raw.bg_512, 1));
+        soundmap.put(9, soundPool.load(context, R.raw.raw_1024, 1));
        // soundmap.put(5, soundPool.load(context, R.raw., 1));
+    }
+    public void  preload(){
+        asyncPlayer=new AsyncPlayer(Tag);
     }
 
     public void play(int number) {
