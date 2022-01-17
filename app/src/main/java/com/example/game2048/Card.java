@@ -2,6 +2,7 @@
 
 package com.example.game2048;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
@@ -29,6 +30,7 @@ public class Card extends FrameLayout {
         addView(background, lp);
 
         label = new TextView(getContext());
+        label.setTextColor(Color.BLACK);
         label.setTextSize(28);
         label.setGravity(Gravity.CENTER);
 
@@ -64,12 +66,7 @@ public class Card extends FrameLayout {
                 break;
             case 4:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_4));
-                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
-                    MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
-                    backgoudSound.getInstance(getContext()).play(8);
-                    tag512=false;
-                    tool.FIRSR_TO_512[config.NUM-3]=false;
-                }
+
                 break;
             case 8:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_8));
@@ -99,8 +96,12 @@ public class Card extends FrameLayout {
                 break;
             case 512:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_512));
-
-                MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
+                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
+                    MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
+                    backgoudSound.getInstance(getContext()).play(8);
+                    tag512=false;
+                    tool.FIRSR_TO_512[config.NUM-3]=false;
+                }
                 break;
             case 1024:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_1024));

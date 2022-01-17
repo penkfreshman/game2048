@@ -1,6 +1,7 @@
 package com.example.game2048;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.Animation;
@@ -105,13 +106,13 @@ public class Anime  extends FrameLayout {
             @Override
             public void onAnimationStart(Animation animation) {
 
-                taget.setNum(0);
+                taget.getLabel().setTextColor(getResources().getColor(R.color.star));
                 taget.getLabel().setBackground(getResources().getDrawable(R.drawable.ic_baseline_star_24));
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                taget.setNum(64);
+                taget.getLabel().setTextColor(Color.BLACK);
             }
 
             @Override

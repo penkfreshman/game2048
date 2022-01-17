@@ -50,7 +50,14 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
         Music_Control.setOnClickListener(this);
         backgoudSound.getInstance(this).preload();
 
-
+        tool.FLAG_TO_CONTROL_MUSIC=getSharedPreferences("tool",MODE_PRIVATE).getBoolean("is_play_music",true);
+        if(tool.FLAG_TO_CONTROL_MUSIC) {
+            Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_note_24));
+            tool.FLAG_TO_CONTROL_MUSIC=true;
+        }else {
+            Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_off_24));
+            backgoudSound.getInstance(this).BG_stop();
+        }
 
 
         layout.setOnTouchListener(new View.OnTouchListener() {
@@ -139,6 +146,7 @@ public class BEGIN_Activity extends AppCompatActivity implements View.OnClickLis
                     Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_note_24));
                     tool.FLAG_TO_CONTROL_MUSIC=true;
                 }
+                getSharedPreferences("tool",MODE_PRIVATE).edit().putBoolean("is_play_music",tool.FLAG_TO_CONTROL_MUSIC).apply();
         }
     }
     public void next_page(){
