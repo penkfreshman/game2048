@@ -1,140 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:background="#E4DBBE"
     android:layout_height="match_parent"
+    android:background="#E4DBBE"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
 
+    <ImageButton
 
-    <LinearLayout
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="60sp"
-            android:text="2048"
-            android:textStyle="bold"/>
-
-   <LinearLayout
-
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="vertical"
+        android:id="@+id/previous"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@drawable/bg"
 
-       android:layout_marginLeft="70dp"
-      >
-       <TextView
-           android:layout_width="60dp"
-           android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_refresh_24"
 
-           android:textSize="18dp"
-           android:gravity="center_horizontal"
-           android:text="@string/Score_String"
+        app:layout_constraintBottom_toBottomOf="@+id/restart"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout4" />
 
-           android:textColor="@color/white" />
-       <TextView
-           android:layout_width="60dp"
-           android:layout_height="40dp"
-           android:id="@+id/Score"
-            android:singleLine="true"
-           android:text="0"
-           android:textSize="18dp"
-           android:gravity="center"
+    <ImageButton
+        android:id="@+id/restart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="212dp"
 
-           android:textColor="@color/white"
-           />
-   </LinearLayout>
-         <LinearLayout
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:orientation="vertical"
-             android:background="@drawable/bg"
-        android:layout_marginLeft="10dp"
-       >
-       <TextView
-           android:layout_width="60dp"
-           android:layout_height="wrap_content"
+        android:background="@drawable/bg"
+        android:src="@drawable/ic_baseline_sync_24"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout5"
+        app:layout_constraintTop_toTopOf="parent" />
 
-           android:textSize="18dp"
-           android:gravity="center_horizontal"
-           android:text="@string/bestScore_String"
+    <FrameLayout
+        android:id="@+id/panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/previous">
 
-           android:textColor="@color/white" />
-       <TextView
-           android:text=""
 
-           android:layout_width="60dp"
-           android:layout_height="40dp"
-           android:singleLine="true"
-           android:id="@+id/BestScore"
-           android:textSize="18dp"
-           android:gravity="center"
+        <com.example.game2048.gameView
+            android:id="@+id/gameView_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-           android:textColor="@color/white"
-           />
-        </LinearLayout>
-    </LinearLayout>
+            ></com.example.game2048.gameView>
+
+        <com.example.game2048.Anime
+            android:id="@+id/anime_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.example.game2048.Anime>
+    </FrameLayout>
+
     <LinearLayout
+
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <ImageButton
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/bg"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5">
 
-            android:id="@+id/previous"
-            android:layout_marginLeft="200dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/bg"
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
 
-            android:src="@drawable/ic_baseline_refresh_24"
+            android:gravity="center_horizontal"
+            android:text="@string/Score_String"
+            android:textColor="@color/white"
 
-            />
-        <ImageButton
-            android:id="@+id/restart"
-            android:layout_marginLeft="20dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-          android:background="@drawable/bg"
+            android:textSize="18dp" />
 
-           android:src="@drawable/ic_baseline_sync_24"
-            />
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="0"
+            android:textColor="@color/white"
 
+            android:textSize="18dp" />
     </LinearLayout>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:id="@+id/panel"
 
-    android:layout_margin="10dp"
-    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_horizontal"
+            android:text="@string/bestScore_String"
+            android:textColor="@color/white"
+
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/BestScore"
+
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text=""
+            android:textColor="@color/white"
+
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="212dp"
+        android:layout_height="118dp"
+        android:layout_marginTop="64dp"
+        android:gravity="bottom"
+        android:text="2048"
+        android:textSize="80sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guideline6"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="10dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="10dp" />
 
 
-    <com.example.game2048.gameView
-        android:id="@+id/gameView_layout"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-
-        >
-    </com.example.game2048.gameView>
-    <com.example.game2048.Anime
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/anime_layout">
-
-    </com.example.game2048.Anime>
-</FrameLayout>
-
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

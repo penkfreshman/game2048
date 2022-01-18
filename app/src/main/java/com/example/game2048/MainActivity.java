@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 backgoudSound.getInstance(this).play(6);
                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage("是否重新开始")
+                        .setIcon(R.color.backgroud)
                         .setPositiveButton("是", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
