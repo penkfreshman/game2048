@@ -3,7 +3,6 @@
 package com.example.game2048;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Handler;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -79,11 +78,11 @@ public class Card extends FrameLayout {
                 break;
             case 64:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_64));
-                if(tag64&&tool.FIRST_To_64[config.NUM-3]){
+                if(tag64&& Tool.FIRST_To_64[Config.NUM-3]){
                 MainActivity.getMainActivity().getAnimLayer().create64(this);
-                backgoudSound.getInstance(getContext()).play(7);
+                BackgoudSound.getInstance(getContext()).play(7);
                 tag64=false;
-                tool.FIRST_To_64[config.NUM-3]=false;
+                Tool.FIRST_To_64[Config.NUM-3]=false;
                 }
                 break;
             case 128:
@@ -96,21 +95,21 @@ public class Card extends FrameLayout {
                 break;
             case 512:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_512));
-                if(tag512&&tool.FIRSR_TO_512[config.NUM-3]){
+                if(tag512&& Tool.FIRSR_TO_512[Config.NUM-3]){
                     MainActivity.getMainActivity().getAnimLayer().paly_animation(getContext());
-                    backgoudSound.getInstance(getContext()).play(8);
+                    BackgoudSound.getInstance(getContext()).play(8);
                     tag512=false;
-                    tool.FIRSR_TO_512[config.NUM-3]=false;
+                    Tool.FIRSR_TO_512[Config.NUM-3]=false;
                 }
                 break;
             case 1024:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_1024));
                 MainActivity.getMainActivity().getAnimLayer().play_animation1024();
-                if(tag1024&&tool.FIRSR_TO_1024[config.NUM-3]){
+                if(tag1024&& Tool.FIRSR_TO_1024[Config.NUM-3]){
                     MainActivity.getMainActivity().getAnimLayer().play_animation1024();
-                    backgoudSound.getInstance(getContext()).play(9);
+                    BackgoudSound.getInstance(getContext()).play(9);
                     tag1024=false;
-                    tool.FIRSR_TO_1024[config.NUM-3]=false;
+                    Tool.FIRSR_TO_1024[Config.NUM-3]=false;
                 }
                 break;
             case 2048:

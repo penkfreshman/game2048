@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
 
     android:orientation="vertical"
-    tools:context=".BEGIN_Activity">
+    tools:context=".BeginActivity">
 
     <ViewFlipper
         android:id="@+id/select_image"

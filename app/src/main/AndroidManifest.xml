@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Game2048">
         <activity
-            android:name=".BEGIN_Activity"
+            android:name=".BeginActivity"
             android:screenOrientation="portrait"
             android:exported="true" >
             <intent-filter>

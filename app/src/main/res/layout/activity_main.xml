@@ -42,12 +42,12 @@
         app:layout_constraintTop_toBottomOf="@+id/previous">
 
 
-        <com.example.game2048.gameView
+        <com.example.game2048.GameView
             android:id="@+id/gameView_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
-            ></com.example.game2048.gameView>
+            ></com.example.game2048.GameView>
 
         <com.example.game2048.Anime
             android:id="@+id/anime_layout"

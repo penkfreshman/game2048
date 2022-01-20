@@ -38,15 +38,15 @@ public class Anime  extends FrameLayout {
         final Card c = getCard(from.getNum());
 
 
-        LayoutParams lp = new LayoutParams(config.CARD_WIDTH, config.CARD_WIDTH);
-        lp.leftMargin = fromX*config.CARD_WIDTH;
-        lp.topMargin = fromY*config.CARD_WIDTH;
+        LayoutParams lp = new LayoutParams(Config.CARD_WIDTH, Config.CARD_WIDTH);
+        lp.leftMargin = fromX* Config.CARD_WIDTH;
+        lp.topMargin = fromY* Config.CARD_WIDTH;
         c.setLayoutParams(lp);
 
         if (to.getNum()<=0) {
             to.getLabel().setVisibility(View.INVISIBLE);
         }
-        TranslateAnimation ta = new TranslateAnimation(0, config.CARD_WIDTH*(toX-fromX), 0, config.CARD_WIDTH*(toY-fromY));
+        TranslateAnimation ta = new TranslateAnimation(0, Config.CARD_WIDTH*(toX-fromX), 0, Config.CARD_WIDTH*(toY-fromY));
 
         ta.setDuration(100);
         ta.setInterpolator(new DecelerateInterpolator());
@@ -92,7 +92,7 @@ public class Anime  extends FrameLayout {
        ScaleAnimation sa = new ScaleAnimation(0.1f, 1, 0.1f, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         sa.setDuration(100);
         target.setAnimation(null);
-        backgoudSound.getInstance(getContext()).play(1);
+        BackgoudSound.getInstance(getContext()).play(1);
         target.getLabel().startAnimation(sa);
     }
 

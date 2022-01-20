@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,10 +16,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-
-import com.plattysoft.leonids.ParticleSystem;
 
 import java.lang.ref.WeakReference;
 
@@ -33,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  TextView score_tv;
     private ImageButton Restart;
     public   ImageButton previous;
-    private  gameView gv_layout;
+    private GameView gv_layout;
     private  Anime am_layout;
     private  int SCORE=0;
     private FrameLayout fl;
@@ -50,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initButton();
         mainActivity=this;
 
-        if (tool.FLAG_TO_CONTROL_MUSIC)
-            backgoudSound.getInstance(this).play_backgroud(this);
+        if (Tool.FLAG_TO_CONTROL_MUSIC)
+            BackgoudSound.getInstance(this).play_backgroud(this);
+
+        String y=getString(R.string.confirm);
 
 
         previous.setOnClickListener(this);
@@ -83,12 +80,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     public void  game_to_switch(){
-        SharedPreferences sp=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE);
-        for(int i=0;i<tool.is_Destory.length;i++) {
-            tool.is_Destory[i] = sp.getBoolean("Item" + i, false);
-            if (tool.is_Destory[i])
-            Log.d("isuse",1+""+i);
-            else  Log.d("isuse",0+""+i);
+        SharedPreferences sp=getSharedPreferences(Tool.Load_or_Star,MODE_PRIVATE);
+        for(int i = 0; i< Tool.is_Destory.length; i++) {
+            Tool.is_Destory[i] = sp.getBoolean(Tool.Save_Item + i, false);
+
 
         }
     }
@@ -137,14 +132,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         showScore(SCORE);
     }
     public void saveScore(int s){
-        SharedPreferences.Editor editor=getSharedPreferences("Layout"+config.NUM,MODE_PRIVATE).edit();
-        editor.putInt("BestScore",s);
+        SharedPreferences.Editor editor=getSharedPreferences(Tool.Save_Layout+ Config.NUM,MODE_PRIVATE).edit();
+        editor.putInt(Tool.Save_BestScore,s);
 
         editor.apply();
     }
 
     public  int getScore(){
-        return getSharedPreferences("Layout"+config.NUM,MODE_PRIVATE).getInt("BestScore",0);
+        return getSharedPreferences(Tool.Save_Layout+ Config.NUM,MODE_PRIVATE).getInt(Tool.Save_BestScore,0);
     }
 
 
@@ -163,24 +158,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.previous:
                 if (gv_layout.step<1)
-                    backgoudSound.getInstance(this).play(5);
+                    BackgoudSound.getInstance(this).play(5);
                 else
-                    backgoudSound.getInstance(this).play(6);
+                    BackgoudSound.getInstance(this).play(6);
                     gv_layout.previous();
                 break;
             case R.id.restart:
-                backgoudSound.getInstance(this).play(6);
+                BackgoudSound.getInstance(this).play(6);
                 AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("是否重新开始")
+                builder.setMessage(getResources().getString(R.string.restar))
                         .setIcon(R.color.backgroud)
-                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 gv_layout.startGame();
 
                             }
                         })
-                        .setNegativeButton("否", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.deny), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -226,25 +221,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences.Editor editor1=getSharedPreferences("GAME_SWITCH",MODE_PRIVATE).edit();
-        tool.is_Destory[config.NUM-3]=true;
-        for (int i=0;i<tool.is_Destory.length;i++)
-            editor1.putBoolean("Item" + i, tool.is_Destory[i]);
+        SharedPreferences.Editor editor1=getSharedPreferences(Tool.Load_or_Star,MODE_PRIVATE).edit();
+        Tool.is_Destory[Config.NUM-3]=true;
+        for (int i = 0; i< Tool.is_Destory.length; i++)
+            editor1.putBoolean(Tool.Save_Item + i, Tool.is_Destory[i]);
         editor1.apply();
 
-        SharedPreferences sp= getSharedPreferences("Layout"+config.NUM, Context.MODE_PRIVATE);
+        SharedPreferences sp= getSharedPreferences(Tool.Save_Layout+ Config.NUM, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor=sp.edit();
-        for (int y=0;y<config.NUM;y++) {
-            for (int x = 0; x < config.NUM; x++) {
-                editor.putInt("Items1" + x + y, gv_layout.card_save1[x][y]);
-                editor.putInt("Items" + x + y, gv_layout.card_save[x][y]);
+        for (int y = 0; y< Config.NUM; y++) {
+            for (int x = 0; x < Config.NUM; x++) {
+                editor.putInt(Tool.Save_Item1 + x + y, gv_layout.card_save1[x][y]);
+                editor.putInt(Tool.Save_Item + x + y, gv_layout.card_save[x][y]);
             }
         }
-        editor.putInt("score",gv_layout.score[0]);
-        editor.putInt("score1",gv_layout.score[1]);
-        editor.putInt("step",gv_layout.step);
+        editor.putInt(Tool.Save_Score,gv_layout.score[0]);
+        editor.putInt(Tool.Save_Score1,gv_layout.score[1]);
+        editor.putInt(Tool.Step,gv_layout.step);
         editor.apply();
-        backgoudSound.getInstance(this).BG_stop();
+        BackgoudSound.getInstance(this).BG_stop();
 
     }
 
