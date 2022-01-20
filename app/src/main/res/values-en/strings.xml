@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Game2048</string>
+    <string name="Score_String">score</string>
+    <string name="bestScore_String"> highest</string>
+    <string name="easy">small-3X3</string>
+    <string name="mediu">modest-4x4</string>
+    <string name="big">big-5x5</string>
+    <string name="confirm">Yes</string>
+    <string name="deny">no</string>
+    <string name="restar">Whether to start over</string>
+    <string name="title">Game over</string>
+    <string name="Start">Start the game</string>
+</resources>

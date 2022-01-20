@@ -110,7 +110,7 @@
         android:layout_width="235dp"
         android:layout_height="51dp"
         android:background="#E44D42"
-        android:text="begin  paly"
+        android:text="@string/Start"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
