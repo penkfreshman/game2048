@@ -144,7 +144,7 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
                     Music_Control.setBackground(getResources().getDrawable(R.drawable.ic_baseline_music_note_24));
                     Tool.FLAG_TO_CONTROL_MUSIC=true;
                 }
-                getSharedPreferences(Tool.Music_play,MODE_PRIVATE).edit().putBoolean(Tool.Music_Save, Tool.FLAG_TO_CONTROL_MUSIC).apply();
+                getSharedPreferences(Tool.Music_Save,MODE_PRIVATE).edit().putBoolean(Tool.Music_play, Tool.FLAG_TO_CONTROL_MUSIC).apply();
         }
     }
     public void next_page(){

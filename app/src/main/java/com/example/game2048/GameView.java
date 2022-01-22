@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -15,6 +16,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
+
+import com.necer.ndialog.ConfirmDialog;
 
 public class GameView extends GridLayout {
 
@@ -25,7 +28,7 @@ public class GameView extends GridLayout {
     public int[][] card_save = new int[Config.NUM][Config.NUM];
     public int[][] card_save1 = new int[Config.NUM][Config.NUM];
     public   int score[]=new int[2];
-    public   int step=0;
+
 
 
     MainActivity.Myhandler myhandler=new MainActivity.Myhandler(new WeakReference(MainActivity.getMainActivity()));
@@ -71,29 +74,29 @@ public class GameView extends GridLayout {
 
                                 SwipeLeft();
                             saveLayout();
-                                step++;
+                                Tool.Step++;
                             }
                             else if (offsetX>5) {
                                // backgoudSound.getInstance(getContext()).play(1);
                                 SwipeRight();
                             saveLayout();
-                                step++;
+                                Tool.Step++;
 
                             }
                         }else{
                             if(offsetY<-5) {
                                // backgoudSound.getInstance(getContext()).play(1);
                                 Swipeup();saveLayout();
-                                step++;
+                                Tool.Step++;
                             }
                             else if (offsetY>5) {
                               //  backgoudSound.getInstance(getContext()).play(1);
                                 Swipedwon();saveLayout();
-                                step++;
+                                Tool.Step++;
 
                             }
                         }
-                        if(step==1)
+                        if(Tool.Step==1)
                             myhandler.sendEmptyMessage(0x123);
                         break;
                     }
@@ -105,7 +108,7 @@ public class GameView extends GridLayout {
 
     }
 
-    private void Swipedwon() {
+    public void Swipedwon() {
 
         boolean merge = false;
 
@@ -146,7 +149,7 @@ public class GameView extends GridLayout {
 
     }
 
-    private void Swipeup() {
+    public void Swipeup() {
 
         boolean merge = false;
 
@@ -188,7 +191,7 @@ public class GameView extends GridLayout {
 
     }
 
-    private void SwipeRight() {
+    public void SwipeRight() {
         boolean merge = false;
 
         for (int y = 0; y < Config.NUM; y++) {
@@ -228,7 +231,7 @@ public class GameView extends GridLayout {
 
     }
 
-    private void SwipeLeft() {
+    public void SwipeLeft() {
         boolean merge = false;
 
         for (int y = 0; y < Config.NUM; y++) {
@@ -355,13 +358,21 @@ public class GameView extends GridLayout {
         if (complete) {
             BackgoudSound.getInstance(getContext()).BG_stop();
             BackgoudSound.getInstance(getContext()).play(4);
-            new AlertDialog.Builder(getContext()).setTitle("你好").setMessage("游戏结束").setPositiveButton("重新开始", new DialogInterface.OnClickListener() {
+            new ConfirmDialog(getContext(),true)
+                    .setMessageColor(Color.RED)
+                    .setMessage(getResources().getString(R.string.restar),40f)
+                    .setNegativeButton(getResources().getString(R.string.deny), 15f,getResources().getColor(R.color.Textcolor), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    startGame();
-                }
-            }).show();
+                        }
+                    })
+                    .setPositiveButton(getResources().getString(R.string.confirm), 15f,getResources().getColor(R.color.Textcolor), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                          startGame();
+                        }
+                    }).create().show();
         }
 
     }
@@ -380,7 +391,7 @@ public class GameView extends GridLayout {
         addRandomNum();
         addRandomNum();
         saveLayout();
-       step=0;
+       Tool.Step=0;
         refresh_music();
         Tool.FIRST_To_64[Config.NUM-3]=true;
         Tool.FIRSR_TO_512[Config.NUM-3]=true;
@@ -427,7 +438,7 @@ public class GameView extends GridLayout {
 
             }
         }
-        if(sp.getInt(Tool.Step,0)<1)
+        if(sp.getInt(Tool.Step_save,0)<1)
             myhandler.sendEmptyMessage(0x111);
 
         score[0] =sp.getInt(Tool.Save_Score,0);
@@ -447,6 +458,7 @@ public class GameView extends GridLayout {
 
         score[1]=score[0];
             MainActivity.getMainActivity().updata_Score(score[0]);
+
         MainActivity.getMainActivity().showScore(score[0]);
        // Log.d("score1",score[0]+"");
     }

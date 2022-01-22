@@ -29,7 +29,7 @@ public class Card extends FrameLayout {
         addView(background, lp);
 
         label = new TextView(getContext());
-        label.setTextColor(Color.BLACK);
+        label.setTextColor(getResources().getColor(R.color.Textcolor));
         label.setTextSize(28);
         label.setGravity(Gravity.CENTER);
 

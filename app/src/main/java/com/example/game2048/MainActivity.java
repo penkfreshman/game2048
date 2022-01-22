@@ -3,22 +3,32 @@ package com.example.game2048;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.necer.ndialog.ConfirmDialog;
+import com.necer.ndialog.NDialog;
+
 import java.lang.ref.WeakReference;
+
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  int SCORE=0;
     private FrameLayout fl;
     private  ImageView imageView;
+    private ConstraintLayout layout;
 
 
 
@@ -48,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (Tool.FLAG_TO_CONTROL_MUSIC)
             BackgoudSound.getInstance(this).play_backgroud(this);
 
-        String y=getString(R.string.confirm);
+
 
 
         previous.setOnClickListener(this);
@@ -73,8 +84,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        MainActivity.Myhandler myhandler=new MainActivity.Myhandler(new WeakReference(MainActivity.getMainActivity()));
 
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            private float startX,startY,offsetX,offsetY;
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()){
+                    case MotionEvent.ACTION_DOWN:{
+                        startX=motionEvent.getX();
+                        startY=motionEvent.getY();
 
+                        break;}
+                    case MotionEvent.ACTION_UP:{
+                        offsetX=motionEvent.getX()-startX;
+                        offsetY=motionEvent.getY()-startY;
+                        if(Math.abs(offsetX)>Math.abs(offsetY)){
+                            if(offsetX<-5) {
+
+                                gv_layout.SwipeLeft();
+                                gv_layout.saveLayout();
+                                Tool.Step++;
+                            }
+                            else if (offsetX>5) {
+                                // backgoudSound.getInstance(getContext()).play(1);
+                                gv_layout.SwipeRight();
+                                gv_layout.saveLayout();
+                                Tool.Step++;
+
+                            }
+                        }else{
+                            if(offsetY<-5) {
+                                // backgoudSound.getInstance(getContext()).play(1);
+                                gv_layout.Swipeup();
+                                gv_layout.saveLayout();
+                                Tool.Step++;
+                            }
+                            else if (offsetY>5) {
+                                //  backgoudSound.getInstance(getContext()).play(1);
+                                gv_layout.Swipedwon();
+                                gv_layout.saveLayout();
+                                Tool.Step++;
+
+                            }
+                        }
+                        if(Tool.Step==1)
+                            myhandler.sendEmptyMessage(0x123);
+                        break;
+                    }
+                }
+
+                return true;
+            }
+        });
 
 
 
@@ -95,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gv_layout=findViewById(R.id.gameView_layout);
         am_layout=findViewById(R.id.anime_layout);
         fl=findViewById(R.id.panel);
-
+        layout=findViewById(R.id.game_layout);
     }
 
     @Override
@@ -157,16 +219,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.previous:
-                if (gv_layout.step<1)
-                    BackgoudSound.getInstance(this).play(5);
-                else
+                if (Tool.Step<1){
+                    Log.d("yes",Tool.Step+"");
+                    BackgoudSound.getInstance(this).play(5);}
+                else{
                     BackgoudSound.getInstance(this).play(6);
-                    gv_layout.previous();
+                    gv_layout.previous();}
                 break;
             case R.id.restart:
                 BackgoudSound.getInstance(this).play(6);
-                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+
+             /*  AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this,R.style.AlertDialog);
                 builder.setMessage(getResources().getString(R.string.restar))
+
                         .setIcon(R.color.backgroud)
                         .setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                             @Override
@@ -182,6 +247,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }).create();
                 builder.show();
+
+              */
+                new ConfirmDialog(this,true)
+                        .setMessageColor(getResources().getColor(R.color.button))
+                        .setMessage(getResources().getString(R.string.restar),40f)
+                        .setNegativeButton(getResources().getString(R.string.deny), 15f,getResources().getColor(R.color.Textcolor), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton(getResources().getString(R.string.confirm), 15f,getResources().getColor(R.color.Textcolor), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                gv_layout.startGame();
+                            }
+                        }).create().show();
+
+
+
                 break;
         }
 
@@ -211,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        }
    }
 
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -237,8 +323,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         editor.putInt(Tool.Save_Score,gv_layout.score[0]);
         editor.putInt(Tool.Save_Score1,gv_layout.score[1]);
-        editor.putInt(Tool.Step,gv_layout.step);
+        editor.putInt(Tool.Step_save,Tool.Step);
         editor.apply();
+
+
         BackgoudSound.getInstance(this).BG_stop();
 
     }

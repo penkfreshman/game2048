@@ -112,7 +112,7 @@ public class Anime  extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                taget.getLabel().setTextColor(Color.BLACK);
+                taget.getLabel().setTextColor(getResources().getColor(R.color.Textcolor));
             }
 
             @Override
