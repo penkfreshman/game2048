@@ -12,4 +12,6 @@
     <string name="restar">Whether to start over</string>
     <string name="title">Game over</string>
     <string name="Start">Start the game</string>
+    <string name="begin_list">list</string>
+    <string name="Step">step</string>
 </resources>

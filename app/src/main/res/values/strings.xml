@@ -10,4 +10,7 @@
     <string name="restar">是否重新开始</string>
     <string name="title">游戏结束</string>
     <string name="Start">开始游戏</string>
+    <string name="begin_list">排行榜</string>
+    <string name="Step">步数</string>
+
 </resources>
