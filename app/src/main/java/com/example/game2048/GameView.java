@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.util.AttributeSet;
@@ -358,6 +360,40 @@ public class GameView extends GridLayout {
         if (complete) {
             BackgoudSound.getInstance(getContext()).BG_stop();
             BackgoudSound.getInstance(getContext()).play(4);
+            DataForList dataForList=new DataForList(getContext(),Tool.List_name,null,1);
+            try {
+                SQLiteDatabase db = dataForList.getWritableDatabase();
+                switch (Config.NUM) {
+                    case 3:
+                        if (Tool.Save_list_score && MainActivity.getMainActivity().getreturnScore() > 100) {
+                            ContentValues values = new ContentValues();
+                            values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
+                            values.put(Tool.Step_save, Tool.Step);
+                            db.insert(Tool.Tabel_name,null,values);
+                        }
+                        break;
+                    case 4:
+                        if (Tool.Save_list_score && MainActivity.getMainActivity().getreturnScore() > 1000){
+                            ContentValues values = new ContentValues();
+                            values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
+                            values.put(Tool.Step_save, Tool.Step);
+                            db.insert(Tool.Tabel_name,null,values);
+                        }
+
+                        break;
+                    case 5:
+                        if (Tool.Save_list_score && MainActivity.getMainActivity().getreturnScore() > 10000){
+                            ContentValues values = new ContentValues();
+                            values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore()/100);
+                            values.put(Tool.Step_save, Tool.Step);
+                            db.insert(Tool.Tabel_name,null,values);
+                        }
+                        break;
+                }
+                db.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             new ConfirmDialog(getContext(),true)
                     .setMessageColor(Color.RED)
                     .setMessage(getResources().getString(R.string.restar),40f)
@@ -373,6 +409,7 @@ public class GameView extends GridLayout {
                           startGame();
                         }
                     }).create().show();
+
         }
 
     }
@@ -435,7 +472,6 @@ public class GameView extends GridLayout {
                 card_save1[x][y] = sp.getInt(Tool.Save_Item1 + x + y, 0);
                 card_save[x][y] = sp.getInt(Tool.Save_Item+ x + y, 0);
                cardsMap[x][y].setNum(card_save1[x][y]);
-
             }
         }
         if(sp.getInt(Tool.Step_save,0)<1)
@@ -443,6 +479,7 @@ public class GameView extends GridLayout {
 
         score[0] =sp.getInt(Tool.Save_Score,0);
         score[1]=sp.getInt(Tool.Save_Score1,0);
+        MainActivity.getMainActivity().updata_Score(score[1]);
         MainActivity.getMainActivity().showScore(score[1]);
         MainActivity.getMainActivity().showBestScore(MainActivity.getMainActivity().getScore());
         refresh_music();

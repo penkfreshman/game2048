@@ -12,11 +12,16 @@ public class Tool {
     public static String Save_Item1="Items1";
     public  static  String Step_save="Step";
     public  static  int  Step=0;
+    public  static  boolean Save_list_score=false;
+
     public  static  String Save_Score="score";
     public  static  String Save_Score1="score1";
     public  static  String  Save_Layout="layout";
     public  static  String  Load_or_Star="GAME_SWITCH";
     public  static String  Save_BestScore="BestScore";
+
+    public  static  String  List_name="list.db";
+    public  static  String  Tabel_name= "ScoreList";
 
 
 }

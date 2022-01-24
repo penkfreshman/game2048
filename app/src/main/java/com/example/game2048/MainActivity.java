@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private  Anime am_layout;
     private  int SCORE=0;
     private FrameLayout fl;
+    private int  max=0;
     private  ImageView imageView;
     private ConstraintLayout layout;
 
@@ -178,10 +179,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void addScore(int s){
         SCORE=SCORE+s;
+        Log.d("score1",SCORE+"");
 
         showScore(SCORE);
 
-        int max= Math.max(SCORE,getScore());
+
+        if (SCORE>getScore())
+        {
+         max=SCORE;
+         Tool.Save_list_score=true;
+        }else max=getScore();
         saveScore(max);
         showBestScore(max);
 

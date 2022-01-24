@@ -337,7 +337,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/E:/androidSDK/icons/material/materialicons/star/baseline_star_24.xml" />
+                                      <entry key="url" value="file:/E:/androidSDK/icons/material/materialicons/filter_3/baseline_filter_3_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -347,7 +347,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_baseline_star_24" />
+                            <entry key="outputName" value="ic_baseline_filter_3_24" />
                             <entry key="sourceFile" value="C:\Users\pen\Desktop\2048\game2048" />
                           </map>
                         </option>

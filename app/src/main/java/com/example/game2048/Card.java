@@ -104,7 +104,7 @@ public class Card extends FrameLayout {
                 break;
             case 1024:
                 label.setBackground(getResources().getDrawable(R.drawable.bg_1024));
-                MainActivity.getMainActivity().getAnimLayer().play_animation1024();
+
                 if(tag1024&& Tool.FIRSR_TO_1024[Config.NUM-3]){
                     MainActivity.getMainActivity().getAnimLayer().play_animation1024();
                     BackgoudSound.getInstance(getContext()).play(9);

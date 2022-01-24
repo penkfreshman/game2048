@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,10 +27,12 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
     private  Button begin;
     private ImageButton Music_Control;
     private ConstraintLayout layout;
+    private  Button list_core;
 
     private final int array[]={3,4,5};
     private  final  int  text[]={R.string.easy,R.string.mediu,R.string.big};
     private int Index=0;
+
 
 
     @Override
@@ -46,6 +47,7 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
         next.setOnClickListener(this);
         previous.setOnClickListener(this);
         Music_Control.setOnClickListener(this);
+        list_core.setOnClickListener(this);
         BackgoudSound.getInstance(this).preload();
 
         Tool.FLAG_TO_CONTROL_MUSIC=getSharedPreferences(Tool.Music_Save,MODE_PRIVATE).getBoolean(Tool.Music_play,true);
@@ -110,6 +112,7 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
         switcher=findViewById(R.id.tv_show_level);
         Music_Control=findViewById(R.id.imageButton);
         layout=findViewById(R.id.begin_page);
+        list_core=findViewById(R.id.list_score);
 
     }
 
@@ -118,13 +121,18 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-       case  R.id.begin:
+        case  R.id.list_score: {
+            Intent intent1 = new Intent(this, ScoreListActivity.class);
+            startActivity(intent1);
+
+                break; }
+       case  R.id.begin:{
            BackgoudSound.getInstance(this).play(6);
            Intent intent=new Intent(this,MainActivity.class);
 
 
            startActivity(intent);
-            break;
+            break;}
             case R.id.select_previous:
 
                 BackgoudSound.getInstance(this).play(6);
@@ -151,7 +159,7 @@ public class BeginActivity extends AppCompatActivity implements View.OnClickList
         BackgoudSound.getInstance(BeginActivity.this).play(2);
         Index=(Index+1)%array.length;
         Config.NUM=array[Math.abs(Index)];
-        VF.setInAnimation(getApplicationContext(),R.anim.animated_left);
+        VF.setInAnimation(getApplicationContext(),R.anim.animate_left);
        // Log.d("select_R",Index+"");
 
         switcher.setText(getResources().getString(text[Math.abs(Index)]));
