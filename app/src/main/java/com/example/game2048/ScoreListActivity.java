@@ -22,6 +22,7 @@ public class ScoreListActivity extends AppCompatActivity {
     private List<Integer> list_score=new ArrayList<Integer>();
     private List<Integer> list_step=new ArrayList<Integer>();
     private RecyclerView recyclerView;
+    private  int return_num;
     @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class ScoreListActivity extends AppCompatActivity {
              db = dataForList.getReadableDatabase();
             cursor=db.rawQuery("select * from ScoreList order by score desc",null);
 
+            cursor.moveToNext();
+            cursor.getString()
                 for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
                     int Step = cursor.getInt(cursor.getColumnIndex(Tool.Step_save));
                     int Score = cursor.getInt(cursor.getColumnIndex(Tool.Save_Score));

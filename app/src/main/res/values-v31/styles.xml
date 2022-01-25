@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="Widget.Game2048.AppWidget.Container" parent="android:Widget.Holo.Light">
+        <item name="android:clipToOutline">true</item>
+    </style>
+</resources>

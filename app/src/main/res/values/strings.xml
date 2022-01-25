@@ -12,5 +12,8 @@
     <string name="Start">开始游戏</string>
     <string name="begin_list">排行榜</string>
     <string name="Step">步数</string>
+    <string name="appwidget_text">第一名</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 
 </resources>
