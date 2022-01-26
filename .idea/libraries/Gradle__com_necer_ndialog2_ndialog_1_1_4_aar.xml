@@ -4,12 +4,17 @@
       <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/caches/transforms-3/e91625c7774609d4b135daad1e638e00/transformed/jetified-ndialog-1.1.4/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/caches/transforms-3/e91625c7774609d4b135daad1e638e00/transformed/jetified-ndialog-1.1.4/res" />
       <root url="file://$USER_HOME$/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/caches/transforms-3/e91625c7774609d4b135daad1e638e00/transformed/jetified-ndialog-1.1.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/613025849107fe70ac0e272834ce6d19/transformed/jetified-ndialog-1.1.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/613025849107fe70ac0e272834ce6d19/transformed/jetified-ndialog-1.1.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/613025849107fe70ac0e272834ce6d19/transformed/jetified-ndialog-1.1.4/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/caches/modules-2/files-2.1/com.necer.ndialog2/ndialog/1.1.4/28a849673a43785747d10dd2924ae2fabc27294c/ndialog-1.1.4-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.necer.ndialog2/ndialog/1.1.4/28a849673a43785747d10dd2924ae2fabc27294c/ndialog-1.1.4-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/wrapper/dists/gradle-5.4.1-all/3221gyojl5jsh0helicew7rwx/gradle-5.4.1/caches/modules-2/files-2.1/com.necer.ndialog2/ndialog/1.1.4/bf8e766b9290b2728067f0f1fb655fb9deb0b43f/ndialog-1.1.4-sources.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.necer.ndialog2/ndialog/1.1.4/bf8e766b9290b2728067f0f1fb655fb9deb0b43f/ndialog-1.1.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

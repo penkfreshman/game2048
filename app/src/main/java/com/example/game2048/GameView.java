@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -370,6 +371,10 @@ public class GameView extends GridLayout {
                             values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
+                            Intent intent=new Intent();
+                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+                            intent.setPackage(getContext().getPackageName());
+                            MainActivity.getMainActivity().sendBroadcast(intent);
                         }
                         break;
                     case 4:
@@ -378,6 +383,10 @@ public class GameView extends GridLayout {
                             values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
+                            Intent intent=new Intent();
+                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+                            intent.setPackage(getContext().getPackageName());
+                            MainActivity.getMainActivity().sendBroadcast(intent);
                         }
 
                         break;
@@ -387,9 +396,15 @@ public class GameView extends GridLayout {
                             values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore()/100);
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
+
+                            Intent intent=new Intent();
+                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+                            intent.setPackage(getContext().getPackageName());
+                            MainActivity.getMainActivity().sendBroadcast(intent);
                         }
                         break;
                 }
+
                 db.close();
             }catch (Exception e){
                 e.printStackTrace();

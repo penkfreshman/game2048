@@ -52,8 +52,7 @@ public class ScoreListActivity extends AppCompatActivity {
              db = dataForList.getReadableDatabase();
             cursor=db.rawQuery("select * from ScoreList order by score desc",null);
 
-            cursor.moveToNext();
-            cursor.getString()
+
                 for(cursor.moveToFirst();!cursor.isAfterLast();cursor.moveToNext()) {
                     int Step = cursor.getInt(cursor.getColumnIndex(Tool.Step_save));
                     int Score = cursor.getInt(cursor.getColumnIndex(Tool.Save_Score));

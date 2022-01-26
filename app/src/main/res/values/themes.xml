@@ -20,13 +20,15 @@
         <item name="android:textSize">50dp</item>
     </style>
 
-    <style name="Theme.Game2048.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+    <style name="Theme.Game2048.AppWidgetContainerParent" parent="@style/CardView.Light">
         <item name="appWidgetRadius">8dp</item>
         <item name="appWidgetPadding">4dp</item>
         <item name="appWidgetInnerRadius">4dp</item>
     </style>
 
-    <style name="Theme.Game2048.AppWidgetContainer" parent="Theme.Game2048.AppWidgetContainerParent" />
+    <style name="Theme.Game2048.AppWidgetContainer" parent="Theme.Game2048.AppWidgetContainerParent" >
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
 
 </resources>
