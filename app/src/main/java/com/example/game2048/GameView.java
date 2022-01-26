@@ -1,10 +1,14 @@
 package com.example.game2048;
 
+import static com.example.game2048.NewAppWidget.getNum;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,6 +23,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.GridLayout;
+import android.widget.RemoteViews;
 
 import com.necer.ndialog.ConfirmDialog;
 
@@ -371,22 +376,19 @@ public class GameView extends GridLayout {
                             values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
-                            Intent intent=new Intent();
-                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-                            intent.setPackage(getContext().getPackageName());
-                            MainActivity.getMainActivity().sendBroadcast(intent);
+
+                            updateWidget(getContext());
+                           // MainActivity.getMainActivity().sendBroadcast(intent);
                         }
                         break;
                     case 4:
-                        if (Tool.Save_list_score && MainActivity.getMainActivity().getreturnScore() > 1000){
+                        if (Tool.Save_list_score && MainActivity.getMainActivity().getreturnScore() > 200){
                             ContentValues values = new ContentValues();
                             values.put(Tool.Save_Score, MainActivity.getMainActivity().getreturnScore());
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
-                            Intent intent=new Intent();
-                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-                            intent.setPackage(getContext().getPackageName());
-                            MainActivity.getMainActivity().sendBroadcast(intent);
+
+                            updateWidget(getContext());
                         }
 
                         break;
@@ -397,10 +399,8 @@ public class GameView extends GridLayout {
                             values.put(Tool.Step_save, Tool.Step);
                             db.insert(Tool.Tabel_name,null,values);
 
-                            Intent intent=new Intent();
-                            intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
-                            intent.setPackage(getContext().getPackageName());
-                            MainActivity.getMainActivity().sendBroadcast(intent);
+                            updateWidget(getContext());
+                          //  MainActivity.getMainActivity().sendBroadcast(intent);
                         }
                         break;
                 }
@@ -518,6 +518,20 @@ public class GameView extends GridLayout {
         BackgoudSound.getInstance(getContext()).BG_stop();
         if(Tool.FLAG_TO_CONTROL_MUSIC)
             BackgoudSound.getInstance(getContext()).play_backgroud(getContext());
+
+    }
+
+    private void updateWidget(Context context) {
+
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        Log.d("pengkun","11111");
+
+
+
+        remoteViews.setTextViewText(R.id.data_Score, getNum(context.getApplicationContext())+"");
+
+        ComponentName componentName = new ComponentName(context, NewAppWidget.class);
+        AppWidgetManager.getInstance(context).updateAppWidget(componentName, remoteViews);
 
     }
 

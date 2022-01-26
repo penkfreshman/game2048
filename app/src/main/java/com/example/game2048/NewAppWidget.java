@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -21,9 +23,16 @@ public class NewAppWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        Log.d("pengkun","test12");
-
-
+        String action = intent.getAction();
+        if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                int[] appWidgetIds = extras.getIntArray(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+                if (appWidgetIds != null && appWidgetIds.length > 0) {
+                    this.onUpdate(context, AppWidgetManager.getInstance(context), appWidgetIds);
+                }
+            }
+        }
 
     }
 
@@ -31,10 +40,10 @@ public class NewAppWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
-
+        Log.d("pengkun",appWidgetId+"");
         CharSequence widgetText1;
         // Construct the RemoteViews object
-         views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
+        views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
         Intent intent=new Intent(context,ScoreListActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 200, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -49,7 +58,7 @@ public class NewAppWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
 
-        views.setTextViewText(R.id.data_Score, getNum(context.getApplicationContext())+"");
+       // views.setTextViewText(R.id.data_Score, getNum(context.getApplicationContext())+"");
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
 
