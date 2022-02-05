@@ -23,6 +23,9 @@
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/activity_score_list.xml" value="0.1" />
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/app_list_widget.xml" value="0.12335359675785208" />
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/dialog.xml" value="0.1296875" />
+        <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/fragment_list.xml" value="0.11510416666666666" />
+        <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/fragment_list4.xml" value="0.11145833333333334" />
+        <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/fragment_list5.xml" value="0.11145833333333334" />
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/item_head.xml" value="0.13802083333333334" />
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/item_list.xml" value="0.1234375" />
         <entry key="..\:/Users/pen/Desktop/2048game/game2048/app/src/main/res/layout/new_app_widget.xml" value="0.152" />
@@ -53,7 +56,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

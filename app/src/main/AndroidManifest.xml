@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Game2048">
         <receiver
-            android:name=".NewAppWidget"
+            android:name=".Widget.NewAppWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -23,10 +23,10 @@
         </receiver>
 
         <activity
-            android:name=".ScoreListActivity"
+            android:name=".List.ScoreListActivity"
             android:exported="false" />
         <activity
-            android:name=".BeginActivity"
+            android:name=".Game.BeginActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Game.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
     </application>
